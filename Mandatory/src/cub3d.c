@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:42:16 by abel-all          #+#    #+#             */
-/*   Updated: 2023/06/22 16:43:07 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:56:32 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,84 +19,57 @@ static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1}
+    {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+    {1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+    {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
-//     for (size_t x = 0; x < 20; x++)
-//     {
-//            for (size_t y = 0; y < 20; y++)
-//     {
-//          if (type == 1)
-//         mlx_pixel_put(data->mlx, data->mlx_win, x + posx, y +  posy  , 0xFFFFFF);
-//     else
-//         mlx_pixel_put(data->mlx, data->mlx_win,x + posx, y +  posy, 0x000000);
-// }
 
-//     }
-    
-// }
-
-void    drawRectangle(int x, int y, int color, t_data *data)
+void    rendermapgrid(t_data *data, int x, int y, int color)
 {
-    for (int i = x; i <= (x + TILE_SIZE); i++) {
-        for (int j = y; j <= (y + TILE_SIZE); j++) {
-            //drawPixel(i, j, color);
+    int i;
+    int j;
+
+    i = -1;
+    while (++i < TILE_SIZE)
+    {
+        j = -1;
+        while (++j < TILE_SIZE)
+        {
             if (color == 1)
-                mlx_pixel_put(data->mlx, data->mlx_win, x, y , 0x00000000);
-            else
-                mlx_pixel_put(data->mlx, data->mlx_win, x, y, 0xFFFFFFFF);
+                mlx_pixel_put(data->mlx, data->mlx_win, i + x, j + y, 0x808080);
+            else if (color == 0)
+                mlx_pixel_put(data->mlx, data->mlx_win, i + x, j + y, 0xFFFFFF);
         }
     }
 }
 
-void draw_rec(t_data *data)
+void    draw_2d_map(t_data *data)
 {
-    int tileColor;
-    //0 :0xFFFFFFFF
-    //1 :0x00000000
-    for (int i = 0; i < MAP_NUM_ROWS; i++) {
-            for (int j = 0; j < MAP_NUM_COLS; j++){
-                if (map[i][j] == 1)
-                    tileColor = 0;
-                else
-                    tileColor = 1;
-                drawRectangle(j * TILE_SIZE, i * TILE_SIZE, tileColor, data);
-            }
+    int i;
+    int j;
+
+    i = -1;
+    while (++i < MAP_NUM_ROWS)
+    {
+        j = -1;
+        while (++j < MAP_NUM_COLS)
+        {
+            if (map[i][j] == 1)
+                rendermapgrid(data, j * TILE_SIZE, i * TILE_SIZE, 1);
+            else if (map[i][j] == 0)
+                rendermapgrid(data, j * TILE_SIZE, i * TILE_SIZE, 0);
+        }
     }
 }
-
-// void    draw_grid(t_data *data, int j, int i)
-// {
-//     if (!map[i][j])
-//         mlx_pixel_put(data->mlx, data->mlx_win, i * 32 , j * 32 , 0xFFFFFF);
-//     else
-//         mlx_pixel_put(data->mlx, data->mlx_win, i * 32 , j * 32 , 0x000000);
-// }
-
-// void    ft_draw(t_data *data)
-// {
-//     int	i;
-// 	int	j;
-
-// 	j = -1;
-// 	while (++j < MAP_NUM_COLS)
-// 	{
-// 		i = -1;
-// 		while (++i < MAP_NUM_ROWS)
-//             draw_rec(data, i * 16 ,j * 16,map[i][j]);
-// 			//draw_grid(data, j, i);;
-// 	}
-// }
 
 void    setup_data(t_data *data)
 {
     // size_x		:the width of the windows
     // size_y		:the heigth of the windows
     data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, 900, \
-    600, "cub3D");
+	data->mlx_win = mlx_new_window(data->mlx, MAP_NUM_COLS \
+    * TILE_SIZE, MAP_NUM_ROWS * TILE_SIZE, "cub3D");
 }
 
 int	main()
@@ -107,8 +80,7 @@ int	main()
     // TODO : initialaize the data
     setup_data(data);
     // TODO : draw frames
-	// ft_draw(data);
-    draw_rec(data);
+    draw_2d_map(data);
 	mlx_loop(data->mlx);
 	return (0);
 }

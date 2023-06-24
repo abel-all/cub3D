@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/06/22 16:04:34 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/06/24 15:26:10 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,20 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_win;
 }				t_data;
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	width;
+	double	height;
+	double	line_width;
+	double	line_height;
+	int		turndirection; // -1 for left, +1 for right
+	int		walkdirection; // -1 for back, +1 for front
+	double	rotationangle;
+	double	walkspeed;
+	double	turnspeed;
+} t_player;
 
 #endif

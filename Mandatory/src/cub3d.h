@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/06/24 15:26:10 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/10 07:52:08 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,22 @@
 # include <stdlib.h>
 # include <mlx.h>
 
+# define W 13
+# define S 1
+# define D 2
+# define A 0
+# define ESC 53
+
 #define TILE_SIZE 50
 #define MAP_NUM_ROWS 10
 #define MAP_NUM_COLS 14
 #define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE) 
 #define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+#define PI 3.14159265
 
-typedef struct s_data
-{
-	void	*mlx;
-	void	*mlx_win;
-}				t_data;
+#define MALLOC_ERR "Malloc error!\n"
+#define INIT_ERR "Mlx init error!\n"
+#define NEW_WIN_ERR "Mlx new window error!\n"
 
 typedef struct s_player
 {
@@ -45,5 +50,29 @@ typedef struct s_player
 	double	walkspeed;
 	double	turnspeed;
 } t_player;
+
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
+
+typedef struct s_data
+{
+	void		*mlx;
+	void		*mlx_win;
+	t_player	*player;
+	t_img		*img;
+}				t_data;
+
+
+int		ft_error(char *err);
+void	init_window(t_data *data, t_player *player);
+void    draw_2d_map(t_data *data);
+void	draw_player(t_data *data, t_player *player, int y, int x);
+int keys_handler(int key_code, void *param);
+
 
 #endif

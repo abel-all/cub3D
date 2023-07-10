@@ -6,15 +6,34 @@
 #    By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/06/22 12:56:59 by abel-all         ###   ########.fr        #
+#    Updated: 2023/07/03 16:29:53 by abel-all         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-all:
-	gcc ./src/*.c -lmlx -framework OpenGL -framework AppKit -o cub3d;
+NAME	= 	cub3d
 
-run:
-	./cub3d;
+# CFLAGS	=  -Wall -Wextra -Werror
 
-clean:
-	rm cub3d;
+HEADERS	= 	src/cub3d.h
+
+SRCS	= 	src/cub3d1.c src/map_and_player.c src/player_movement.c
+
+OBJS	= 	$(SRCS:.c=.o)
+
+all		: 	$(NAME)
+
+$(NAME)	: 	$(OBJS)
+			cc $(CFLAGS) $^ -lmlx -framework OpenGL -framework AppKit -o $@
+
+%.o		: 	%.c $(HEADERS)
+			cc $(CFLAGS) -c $< -o $@
+
+clean	:
+			rm -rf $(OBJS)
+
+fclean 	: 	clean
+			rm -rf $(NAME)
+
+re		: 	fclean all
+
+.PHONY	: 	fclean all clean re

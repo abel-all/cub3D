@@ -1,67 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   cub3d1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 14:42:16 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/11 10:38:14 by abel-all         ###   ########.fr       */
+/*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
+/*   Updated: 2023/07/11 15:31:44 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../lib/cub3d.h"
 
-typedef struct s_player {
-    float x; // player's x-coordinate
-    float y; // player's y-coordinate
-    float dir_x; // player's direction vector x-component
-    float dir_y; // player's direction vector y-component
-    float plane_x; // camera plane vector x-component
-    float plane_y; // camera plane vector y-component
-    float move_speed; // player's movement speed
-    float rot_speed; // player's rotation speed
-} t_player;
-
-static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-};
-
-void init_player(t_player *player, int x, int y, float direction)
+void	rendring(t_data *data, t_player *player)
 {
-    player->x = x; // set player's initial position
-    player->y = y;
-    player->dir_x = cos(direction); // set player's initial direction
-    player->dir_y = sin(direction);
-    player->plane_x = -0.66 * player->dir_y; // set player's camera plane
-    player->plane_y = 0.66 * player->dir_x;
-    player->move_speed = 0.05; // set player's movement speed
-    player->rot_speed = 0.05; // set player's rotation speed
+	draw_2d_map(data);// rendri
+	draw_player(data, player, 0, 0);
 }
 
-int	main(int ac, char **av)
+int main()
 {
-    t_data	    *data;
-    t_player	*player;
+	t_data	    *data;
+	t_player	*player;
+	t_img		*img;
 
-    data = malloc(sizeof(t_data));
-    player = malloc(sizeof(t_player));
-    parcing(ac, av, data);
-    // TODO : initialaize the data
-    setup_data(data, player);
-    // TODO : draw frames
-    draw_2d_map(data);
-    // player_movement(data);
-    draw_player(data, player);
-    mlx_loop(data->mlx);
-    return (0);
+	data = malloc(sizeof(t_data));
+	player = malloc(sizeof(t_player));
+	if (!data)
+		ft_error(MALLOC_ERR);
+    init_window(data, player);// is setup part
+	rendring(data, player);// rendring map and player
+	mlx_put_image_to_window(data->mlx, data->mlx_win, \
+	data->img->img, 0, 0);
+	// mlx_key_hook();
+	// mlx_key_hook(data->mlx_win, keys_handler, data);
+	mlx_loop(data->mlx);
 }

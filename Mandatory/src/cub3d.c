@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:42:16 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/03 18:24:20 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/11 10:12:48 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,23 @@ static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
+
+void    abdessamad()
+{
+    printf("jfjffj");
+}
+void    abdessamaddf()
+{
+    printf("jfjffj");
+}
+void    abdessamadfdg()
+{
+    printf("jfjffj");
+}
+void    abdessamaddd()
+{
+    printf("jfjffj");
+}
 
 void init_player(t_player *player, int x, int y, float direction)
 {

@@ -6,13 +6,13 @@
 #    By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/07/03 16:29:53 by abel-all         ###   ########.fr        #
+#    Updated: 2023/07/11 10:52:02 by abel-all         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 	cub3d
 
-# CFLAGS	=  -Wall -Wextra -Werror
+CFLAGS	= -g #-Wall -Wextra -Werror
 
 HEADERS	= 	src/cub3d.h
 

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:42:16 by abel-all          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/10 11:58:07 by ychahbi          ###   ########.fr       */
-=======
-/*   Updated: 2023/07/11 10:12:48 by abel-all         ###   ########.fr       */
->>>>>>> 10304ace33bc0161e8fe180b9fedc155e4a66690
+/*   Updated: 2023/07/11 10:38:14 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +35,6 @@ static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
-
-void    abdessamad()
-{
-    printf("jfjffj");
-}
-void    abdessamaddf()
-{
-    printf("jfjffj");
-}
-void    abdessamadfdg()
-{
-    printf("jfjffj");
-}
-void    abdessamaddd()
-{
-    printf("jfjffj");
-}
 
 void init_player(t_player *player, int x, int y, float direction)
 {

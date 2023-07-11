@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/10 07:52:08 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:29:05 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <math.h>
 # include <mlx.h>
 
 # define W 13
@@ -30,11 +31,17 @@
 #define MAP_NUM_COLS 14
 #define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE) 
 #define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
-#define PI 3.14159265
+#define PI 3.14159265359
 
 #define MALLOC_ERR "Malloc error!\n"
 #define INIT_ERR "Mlx init error!\n"
 #define NEW_WIN_ERR "Mlx new window error!\n"
+
+typedef struct s_point
+{
+	int	x;
+	int y;
+} t_point;
 
 typedef struct s_player
 {
@@ -42,8 +49,6 @@ typedef struct s_player
 	double	y;
 	double	width;
 	double	height;
-	double	line_width;
-	double	line_height;
 	int		turndirection; // -1 for left, +1 for right
 	int		walkdirection; // -1 for back, +1 for front
 	double	rotationangle;
@@ -65,6 +70,7 @@ typedef struct s_data
 	void		*mlx_win;
 	t_player	*player;
 	t_img		*img;
+	t_point		*point;
 }				t_data;
 
 

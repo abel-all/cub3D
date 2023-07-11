@@ -3,18 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 14:42:16 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/03 18:24:20 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:58:07 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <mlx.h>
 #include "cub3d.h"
 
 typedef struct s_player {
@@ -53,19 +48,20 @@ void init_player(t_player *player, int x, int y, float direction)
     player->rot_speed = 0.05; // set player's rotation speed
 }
 
-int	main()
+int	main(int ac, char **av)
 {
-	t_data	    *data;
-	t_player	*player;
+    t_data	    *data;
+    t_player	*player;
 
-	data = malloc(sizeof(t_data));
-	player = malloc(sizeof(t_player));
+    data = malloc(sizeof(t_data));
+    player = malloc(sizeof(t_player));
+    parcing(ac, av, data);
     // TODO : initialaize the data
     setup_data(data, player);
     // TODO : draw frames
     draw_2d_map(data);
     // player_movement(data);
     draw_player(data, player);
-	mlx_loop(data->mlx);
-	return (0);
+    mlx_loop(data->mlx);
+    return (0);
 }

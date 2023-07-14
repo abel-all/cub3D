@@ -6,11 +6,11 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:07:36 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/11 16:39:03 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/14 00:05:50 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/cub3d.h"
+#include "../../lib/cub3d.h"
 
 static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1},
@@ -110,13 +110,13 @@ void    draw_2d_map(t_data *data)
     }
 }
 
-void    draw_line(t_data *data, t_point *a, t_point *b, double angle)
-{
-    double line_height;
+// void    draw_line(t_data *data, t_point *a, t_point *b, double angle)
+// {
+//     double line_height;
 
-    a
-    line_height = sqrt(pow());
-}
+//     a
+//     line_height = sqrt(pow());
+// }
 
 void	draw_player(t_data *data, t_player *player, int y, int x)
 {
@@ -131,6 +131,8 @@ void	draw_player(t_data *data, t_player *player, int y, int x)
 	x2 = player->x + (player->width / 2);
 	y1 = player->y - (player->height / 2);
 	y2 = player->y + (player->height / 2);
+    a = malloc(sizeof(t_point));
+    b = malloc(sizeof(t_point));;
 	x = x1 - 1;
     while (++x <= x2)
 	{
@@ -142,7 +144,7 @@ void	draw_player(t_data *data, t_player *player, int y, int x)
     a->y = player->y;
     b->x = player->x;
     b->y = player->y;
-    draw_line(data, NULL, NULL, M_PI_2);
+    // draw_line(data, NULL, NULL, M_PI_2);
 	// x1 = player->x - (player->line_width / 2);
 	// x2 = player->x + (player->line_width / 2);
 	// y1 = player->y;

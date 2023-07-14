@@ -6,11 +6,11 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:58:23 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/11 10:46:45 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/13 07:17:04 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/cub3d.h"
+#include "../../lib/cub3d.h"
 
 int keys_handler(int key_code, void *param)
 {

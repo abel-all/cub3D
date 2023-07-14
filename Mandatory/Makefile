@@ -6,17 +6,17 @@
 #    By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/07/11 16:53:02 by abel-all         ###   ########.fr        #
+#    Updated: 2023/07/13 07:15:57 by abel-all         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 	cub3d
 
-CFLAGS	= -g #-Wall -Wextra -Werror
+CFLAGS	=	-g #-Wall -Wextra -Werror
 
-HEADERS	= 	src/cub3d.h
+HEADERS	= 	lib/cub3d.h
 
-SRCS	= 	src/cub3d.c src/map_and_player.c src/player_movement.c
+SRCS	= 	src/cub3d.c src/raycasting/map_and_player.c src/raycasting/player_movement.c
 
 OBJS	= 	$(SRCS:.c=.o)
 

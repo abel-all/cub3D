@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/15 15:51:05 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/16 10:57:41 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,39 @@ int	check_if_wall(t_data *data, double x, double y)
 	return (1);
 }
 
-void	casting_rays(t_data *data, double angle)
+void	cast_rays(t_data *data, t_ray *ray, int coulumnid)
 {
-	t_point	*a;
-	t_point	*b;
+	double	xintersept;
+	double	yintersept;
+	double	xstep;
+	double	ystep;
+	// HORIZONTAL RAY-GRID INTERSECTION :
+	yintersept = floor(data->player->y / TILE_SIZE) * TILE_SIZE;
+}
 
-	a = malloc(sizeof(t_point));
-	b = malloc(sizeof(t_point));
-	a->x = data->player->x;
-    a->y = data->player->y;
-    b->x = data->player->x + cos(angle) * 40;
-    b->y = data->player->y + sin(angle) * 40;
-    draw_line(data, a, b);
+double	get_normalizeangle(double angle)
+{
+	angle = fmod(angle, (2 * M_PI));
+	if (angle < 0)
+		return (angle + (2 * M_PI));
+	return (angle);
+}
+
+void	draw_rays(t_data *data, t_ray *ray, double angle, int coulumnid)
+{
+
+	ray->rayangle = get_normalizeangle(angle);
+	ray->a = malloc(sizeof(t_point));
+	ray->b = malloc(sizeof(t_point));
+	ray->a->x = data->player->x;
+    ray->a->y = data->player->y;
+    ray->b->x = data->player->x + cos(ray->rayangle) * 40;
+    ray->b->y = data->player->y + sin(ray->rayangle) * 40;
+    draw_line(data, ray->a, ray->b);
+	ray->distance = 0;
+	ray->wallhitx = 0;
+	ray->wallhity = 0;
+	cast_rays(data, ray, coulumnid);
 }
 
 void	castallrays(t_data *data, int i)
@@ -52,13 +73,14 @@ void	castallrays(t_data *data, int i)
 	double	rayangle;
 
 	columnid = 0;
+	// data->ray = malloc(sizeof(t_ray *) * NUM_OF_RAYS);
 	// awal ray :
 	rayangle = data->player->rotationangle - (FOV_ANGLE / 2);
 	//while (++i < NUM_OF_RAYS) // loop all columns casting the rays :
-	while (++i < 1) // loop all columns casting the rays :
+	while (++i < NUM_OF_RAYS) // loop all columns casting the rays :
 	{
-		casting_rays(data, rayangle);
-		rayangle += FOV_ANGLE / NUM_OF_RAYS;
+		draw_rays(data, &data->ray[i], rayangle, columnid);
+		rayangle += (FOV_ANGLE / NUM_OF_RAYS);
 		columnid++;
 	}
 }

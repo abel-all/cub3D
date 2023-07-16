@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/15 15:49:20 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/16 10:28:30 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,17 @@ typedef struct s_point
 {
 	int	x;
 	int y;
-} t_point;
+}				t_point;
+
+typedef struct s_ray
+{
+	double	rayangle;
+	double	wallhitx;
+	double	wallhity;
+	double	distance;
+	t_point	*a;
+	t_point	*b;
+}				t_ray;
 
 typedef struct s_player
 {
@@ -75,6 +85,7 @@ typedef struct s_data
 	t_player	*player;
 	t_img		*img;
 	t_point		*point;
+	t_ray		ray[NUM_OF_RAYS];
 }				t_data;
 
 

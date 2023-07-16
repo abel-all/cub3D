@@ -6,22 +6,22 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:07:36 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/14 00:05:50 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:38:11 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 
-static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-    {1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
@@ -64,10 +64,6 @@ void	init_window(t_data *data, t_player *player)
     data->img->addr = mlx_get_data_addr(data->img->img, \
     &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
 	// mlx_put_image_to_window();
-    player->x = ((MAP_NUM_COLS * TILE_SIZE) / 2);
-	player->y = ((MAP_NUM_ROWS * TILE_SIZE) / 2);
-	player->height = 12;
-	player->width = 12;
 }
 
 void    draw_grid(t_data *data, int x, int y, int color)
@@ -110,13 +106,22 @@ void    draw_2d_map(t_data *data)
     }
 }
 
-// void    draw_line(t_data *data, t_point *a, t_point *b, double angle)
-// {
-//     double line_height;
-
-//     a
-//     line_height = sqrt(pow());
-// }
+void	draw_line(t_data *data, t_point *a, t_point *b)
+{
+	double deltax = b->x - a->x;
+	double deltay = b->y - a->y;
+	int n_of_pixels = sqrt((deltax * deltax) + (deltay * deltay));
+	double pixelx = a->x;
+	double pixely = a->y;
+	deltax /= n_of_pixels;
+	deltay /= n_of_pixels;
+	while (n_of_pixels--)
+	{
+		my_mlx_pixel_put(data->img, pixelx, pixely, 0xFF0000);
+		pixelx += deltax;
+		pixely += deltay;
+	}
+}
 
 void	draw_player(t_data *data, t_player *player, int y, int x)
 {
@@ -142,8 +147,9 @@ void	draw_player(t_data *data, t_player *player, int y, int x)
 	}
     a->x = player->x;
     a->y = player->y;
-    b->x = player->x;
-    b->y = player->y;
+    b->x = player->x + cos(data->player->rotationangle) * 30;
+    b->y = player->y + sin(data->player->rotationangle) * 30;
+    draw_line(data, a, b);
     // draw_line(data, NULL, NULL, M_PI_2);
 	// x1 = player->x - (player->line_width / 2);
 	// x2 = player->x + (player->line_width / 2);

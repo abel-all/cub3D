@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/16 10:57:41 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:03:17 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,69 @@ int	check_if_wall(t_data *data, double x, double y)
 	return (1);
 }
 
+int	check_if_insidemap(double x, double y)
+{
+    if (x >= 0 && x <= WIN_WIDTH && y >= 0 && y <= WIN_HEIGHT)
+		return (1);
+	return (0);
+}
+
+void	draw_ray(t_data *data, t_ray *ray)
+{
+	ray->a->x = data->player->x;
+    ray->a->y = data->player->y;
+    ray->b->x = ray->wallhitx;
+    ray->b->y = ray->wallhity;
+	draw_line(data, ray->a, ray->b);
+}
+
 void	cast_rays(t_data *data, t_ray *ray, int coulumnid)
 {
 	double	xintersept;
 	double	yintersept;
 	double	xstep;
 	double	ystep;
+	double	nexthorztouchx;
+	double	nexthorztouchy;
+	int		foundHorzWallHit = 0;
 	// HORIZONTAL RAY-GRID INTERSECTION :
+	// find the y_coordinate of the closest horizontal grid intersection :
 	yintersept = floor(data->player->y / TILE_SIZE) * TILE_SIZE;
+	if (ray->isdown)
+		yintersept += TILE_SIZE;
+	// find the x_coordinate of the closest horizontal grid intersection :
+	xintersept = data->player->x + ((data->player->y - yintersept) / tan(ray->rayangle));
+	// calculate the increment xstep & ystep :
+	ystep = TILE_SIZE;
+	if (ray->isup)
+		ystep *= -1;
+	xstep = TILE_SIZE / tan(ray->rayangle);
+	if (ray->isleft && xstep > 0)
+		xstep *= -1;
+	if (ray->isright && xstep < 0)
+		xstep *= -1;
+	nexthorztouchx = xintersept;
+	nexthorztouchy = yintersept;
+	if (ray->isup)
+		nexthorztouchy--;
+	// increment xstep & ystep until we find a wall
+	while (check_if_insidemap(nexthorztouchx, nexthorztouchy))
+	{
+        if (check_if_wall(data, nexthorztouchx, nexthorztouchy))
+		{
+            // found a wall hit
+            ray->wallhitx = nexthorztouchx;
+            ray->wallhity = nexthorztouchy;
+			foundHorzWallHit = 1;
+			draw_ray(data, ray);
+            break;
+        }
+		else 
+		{
+            nexthorztouchx += xstep;
+            nexthorztouchy += ystep;
+        }
+	}
 }
 
 double	get_normalizeangle(double angle)
@@ -52,7 +107,6 @@ double	get_normalizeangle(double angle)
 
 void	draw_rays(t_data *data, t_ray *ray, double angle, int coulumnid)
 {
-
 	ray->rayangle = get_normalizeangle(angle);
 	ray->a = malloc(sizeof(t_point));
 	ray->b = malloc(sizeof(t_point));
@@ -60,10 +114,21 @@ void	draw_rays(t_data *data, t_ray *ray, double angle, int coulumnid)
     ray->a->y = data->player->y;
     ray->b->x = data->player->x + cos(ray->rayangle) * 40;
     ray->b->y = data->player->y + sin(ray->rayangle) * 40;
-    draw_line(data, ray->a, ray->b);
+    // draw_line(data, ray->a, ray->b);
 	ray->distance = 0;
 	ray->wallhitx = 0;
 	ray->wallhity = 0;
+	if (ray->rayangle > 0 && ray->rayangle < M_PI)
+		ray->isdown = 1;
+	else
+		ray->isdown = 0;
+	ray->isup = !ray->isdown;
+	if (ray->rayangle < M_PI_2 || ray->rayangle > (3 * M_PI_2))
+		ray->isright = 1;
+	else
+		ray->isright = 0;
+	// ray->isright = ray->rayangle < M_PI_2 || ray->rayangle > (3 * M_PI_2);
+	ray->isleft = !ray->isright;
 	cast_rays(data, ray, coulumnid);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/16 10:28:30 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/16 11:43:19 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ typedef struct s_ray
 	double	wallhitx;
 	double	wallhity;
 	double	distance;
+	int		isdown;
+	int		isup;
+	int		isright;
+	int		isleft;
 	t_point	*a;
 	t_point	*b;
 }				t_ray;

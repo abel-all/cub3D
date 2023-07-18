@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/16 11:43:19 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:08:07 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
+# include <limits.h>
 # include <mlx.h>
 
 # define W 13
@@ -32,7 +33,7 @@
 #define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE) 
 #define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 #define FOV_ANGLE (60 * (M_PI / 180))
-#define WALL_STRIP_WIDTH 30
+#define WALL_STRIP_WIDTH 1
 #define NUM_OF_RAYS (WIN_WIDTH / WALL_STRIP_WIDTH)
 
 #define MALLOC_ERR "Malloc error!\n"
@@ -43,8 +44,8 @@ extern int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
 typedef struct s_point
 {
-	int	x;
-	int y;
+	double	x;
+	double	y;
 }				t_point;
 
 typedef struct s_ray
@@ -52,7 +53,12 @@ typedef struct s_ray
 	double	rayangle;
 	double	wallhitx;
 	double	wallhity;
+	double	horzwallhitx;
+	double	horzwallhity;
+	double	vertwallhitx;
+	double	vertwallhity;
 	double	distance;
+	int		washitvert;
 	int		isdown;
 	int		isup;
 	int		isright;
@@ -89,7 +95,7 @@ typedef struct s_data
 	t_player	*player;
 	t_img		*img;
 	t_point		*point;
-	t_ray		ray[NUM_OF_RAYS];
+	t_ray		*ray;
 }				t_data;
 
 

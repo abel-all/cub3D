@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/16 15:03:17 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:07:07 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	check_if_insidemap(double x, double y)
 
 void	draw_ray(t_data *data, t_ray *ray)
 {
+	ray->a = malloc(sizeof(t_point));
+	ray->b = malloc(sizeof(t_point));
 	ray->a->x = data->player->x;
     ray->a->y = data->player->y;
     ray->b->x = ray->wallhitx;
@@ -48,45 +50,108 @@ void	draw_ray(t_data *data, t_ray *ray)
 	draw_line(data, ray->a, ray->b);
 }
 
-void	cast_rays(t_data *data, t_ray *ray, int coulumnid)
+double	get_normalizeangle(double angle)
+{
+	angle = remainder(angle, (2 * M_PI));
+	if (angle < 0)
+		angle = angle + (2 * M_PI);
+	return (angle);
+}
+
+int	chek_if_isdown(t_ray *ray)
+{
+	if (ray->rayangle > 0 && ray->rayangle < M_PI)
+		return (1);
+	else
+		return (0);
+}
+
+int	chek_if_isup(t_ray *ray)
+{
+	return (!chek_if_isdown(ray));
+}
+
+int	chek_if_isright(t_ray *ray)
+{
+	if (ray->rayangle < (0.5 * M_PI) || ray->rayangle > (1.5 * M_PI))
+		return (1);
+	else
+		return (0);
+}
+
+int	chek_if_isleft(t_ray *ray)
+{
+	return (!chek_if_isright(ray));
+}
+
+void	init_ray(t_ray *ray, double rayangle)
+{
+	ray->rayangle = get_normalizeangle(rayangle);
+	ray->isdown = chek_if_isdown(ray);
+	ray->isup = chek_if_isup(ray);
+	ray->isright = chek_if_isright(ray);
+	ray->isleft = chek_if_isleft(ray);
+	ray->distance = 0;
+	ray->horzwallhitx = 0;
+	ray->horzwallhity = 0;
+	ray->vertwallhitx = 0;
+	ray->vertwallhity = 0;
+}
+
+double	distance_betwn_ab(double x1, double y1, double x2, double y2)
+{
+	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+}
+
+void	cast_ray(t_data *data, t_ray *ray, double rayangle, int stripid)
 {
 	double	xintersept;
 	double	yintersept;
 	double	xstep;
 	double	ystep;
+	double	xcheck;
+	double	ycheck;
+	// double	horzwallhitx = 0;
+	// double	horzwallhity = 0;
 	double	nexthorztouchx;
 	double	nexthorztouchy;
-	int		foundHorzWallHit = 0;
-	// HORIZONTAL RAY-GRID INTERSECTION :
-	// find the y_coordinate of the closest horizontal grid intersection :
+	int		foundhorzwallhit = 0;
+	int		foundvertwallhit = 0;
+
+	init_ray(ray, rayangle);
+	
+	/*===============================================*/
+	// HORIZONTAL RAY-GRID INTERSECTION PART :
+	/*===============================================*/
 	yintersept = floor(data->player->y / TILE_SIZE) * TILE_SIZE;
-	if (ray->isdown)
+	if (ray->isdown == 1)
 		yintersept += TILE_SIZE;
-	// find the x_coordinate of the closest horizontal grid intersection :
-	xintersept = data->player->x + ((data->player->y - yintersept) / tan(ray->rayangle));
+	xintersept = data->player->x + ((yintersept - data->player->y) / tan(ray->rayangle));
 	// calculate the increment xstep & ystep :
 	ystep = TILE_SIZE;
-	if (ray->isup)
+	if (ray->isup == 1)
 		ystep *= -1;
 	xstep = TILE_SIZE / tan(ray->rayangle);
-	if (ray->isleft && xstep > 0)
+	if (ray->isleft == 1 && xstep > 0)
 		xstep *= -1;
-	if (ray->isright && xstep < 0)
+	if (ray->isright == 1 && xstep < 0)
 		xstep *= -1;
 	nexthorztouchx = xintersept;
 	nexthorztouchy = yintersept;
-	if (ray->isup)
-		nexthorztouchy--;
 	// increment xstep & ystep until we find a wall
-	while (check_if_insidemap(nexthorztouchx, nexthorztouchy))
+	while (check_if_insidemap(nexthorztouchx, nexthorztouchy) == 1)
 	{
-        if (check_if_wall(data, nexthorztouchx, nexthorztouchy))
+		xcheck = nexthorztouchx;
+		ycheck = nexthorztouchy;
+		if (ray->isup == 1)
+			ycheck--;
+        if (check_if_wall(data, xcheck, ycheck))
 		{
             // found a wall hit
-            ray->wallhitx = nexthorztouchx;
-            ray->wallhity = nexthorztouchy;
-			foundHorzWallHit = 1;
-			draw_ray(data, ray);
+            ray->horzwallhitx = nexthorztouchx;
+            ray->horzwallhity = nexthorztouchy; 
+			foundhorzwallhit = 1;
+			// draw_ray(data, ray);
             break;
         }
 		else 
@@ -95,58 +160,97 @@ void	cast_rays(t_data *data, t_ray *ray, int coulumnid)
             nexthorztouchy += ystep;
         }
 	}
-}
-
-double	get_normalizeangle(double angle)
-{
-	angle = fmod(angle, (2 * M_PI));
-	if (angle < 0)
-		return (angle + (2 * M_PI));
-	return (angle);
-}
-
-void	draw_rays(t_data *data, t_ray *ray, double angle, int coulumnid)
-{
-	ray->rayangle = get_normalizeangle(angle);
-	ray->a = malloc(sizeof(t_point));
-	ray->b = malloc(sizeof(t_point));
-	ray->a->x = data->player->x;
-    ray->a->y = data->player->y;
-    ray->b->x = data->player->x + cos(ray->rayangle) * 40;
-    ray->b->y = data->player->y + sin(ray->rayangle) * 40;
-    // draw_line(data, ray->a, ray->b);
-	ray->distance = 0;
-	ray->wallhitx = 0;
-	ray->wallhity = 0;
-	if (ray->rayangle > 0 && ray->rayangle < M_PI)
-		ray->isdown = 1;
+	/*===============================================*/
+	// VERTICAL RAY-GRID INTERSECTION PART :
+	/*===============================================*/
+	
+	xintersept = floor(data->player->x / TILE_SIZE) * TILE_SIZE;
+	if (ray->isright == 1)
+		xintersept += TILE_SIZE;
+	yintersept = data->player->y + ((xintersept - data->player->x) * tan(ray->rayangle));
+	// calculate the increment xstep & ystep :
+	xstep = TILE_SIZE;
+	if (ray->isleft == 1)
+		xstep *= -1;
+	ystep = TILE_SIZE * tan(ray->rayangle);
+	if (ray->isup == 1 && ystep > 0)
+		ystep *= -1;
+	if (ray->isdown == 1 && ystep < 0)
+		ystep *= -1;
+	double nextverttouchx = xintersept;
+	double nextverttouchy = yintersept;
+	// increment xstep & ystep until we find a wall
+	while (check_if_insidemap(nextverttouchx, nextverttouchy) == 1)
+	{
+		xcheck = nextverttouchx;
+		ycheck = nextverttouchy;
+		if (ray->isleft == 1)
+			xcheck--;
+        if (check_if_wall(data, xcheck, ycheck))
+		{
+            // found a wall hit
+            ray->vertwallhitx = nextverttouchx;
+            ray->vertwallhity = nextverttouchy; 
+			foundvertwallhit = 1;
+			// draw_ray(data, ray);
+            break;
+        }
+		else 
+		{
+            nextverttouchx += xstep;
+            nextverttouchy += ystep;
+        }
+	}
+	/*===============================================*/
+	// calc horz & vert distances & choose the smallest one  :
+	/*===============================================*/
+	double horzhitdis;
+	if (foundhorzwallhit == 1)
+		horzhitdis = distance_betwn_ab(data->player->x, data->player->y, \
+		ray->horzwallhitx, ray->horzwallhity);
 	else
-		ray->isdown = 0;
-	ray->isup = !ray->isdown;
-	if (ray->rayangle < M_PI_2 || ray->rayangle > (3 * M_PI_2))
-		ray->isright = 1;
+		horzhitdis = INT_MAX;
+	double verthitdis;
+	if (foundvertwallhit == 1)
+		verthitdis = distance_betwn_ab(data->player->x, data->player->y, \
+		ray->vertwallhitx, ray->vertwallhity);
 	else
-		ray->isright = 0;
-	// ray->isright = ray->rayangle < M_PI_2 || ray->rayangle > (3 * M_PI_2);
-	ray->isleft = !ray->isright;
-	cast_rays(data, ray, coulumnid);
+		verthitdis = INT_MAX;
+	if (verthitdis < horzhitdis)
+	{
+		ray->distance = verthitdis;
+		ray->wallhitx = ray->vertwallhitx;
+		ray->wallhity = ray->vertwallhity;
+		ray->washitvert = 1;
+	}
+	else
+	{
+		ray->distance = horzhitdis;
+		ray->wallhitx = ray->horzwallhitx;
+		ray->wallhity = ray->horzwallhity;
+		ray->washitvert = 0;
+	}
+	draw_ray(data, ray);
 }
 
 void	castallrays(t_data *data, int i)
 {
-	int		columnid;
+	int		stripid;
 	double	rayangle;
+	double	rayangle_incr;
 
-	columnid = 0;
-	// data->ray = malloc(sizeof(t_ray *) * NUM_OF_RAYS);
+	// i = 1;
+	stripid = 0;
+	rayangle_incr = FOV_ANGLE / NUM_OF_RAYS;
+	data->ray = malloc(sizeof(t_ray) * NUM_OF_RAYS);
 	// awal ray :
 	rayangle = data->player->rotationangle - (FOV_ANGLE / 2);
 	//while (++i < NUM_OF_RAYS) // loop all columns casting the rays :
-	while (++i < NUM_OF_RAYS) // loop all columns casting the rays :
+	while (stripid < NUM_OF_RAYS) // loop all columns casting the rays :
 	{
-		draw_rays(data, &data->ray[i], rayangle, columnid);
-		rayangle += (FOV_ANGLE / NUM_OF_RAYS);
-		columnid++;
+		cast_ray(data, &data->ray[stripid], rayangle, stripid);
+		rayangle += rayangle_incr;
+		stripid++;
 	}
 }
 
@@ -162,6 +266,7 @@ void	update(t_data *data)
     &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
 	// mlx_clear_window(data->mlx, data->mlx_win);
 	data->player->rotationangle += data->player->turndirection * data->player->rotationspeed;
+	data->player->rotationangle = get_normalizeangle(data->player->rotationangle);
 	movestep = data->player->walkdirection * data->player->movespeed;
 	new_px = data->player->x + cos(data->player->rotationangle) * movestep;
 	new_py = data->player->y + sin(data->player->rotationangle) * movestep;
@@ -172,7 +277,7 @@ void	update(t_data *data)
 	}
 	// draw_player(data, data->player, 0, 0);
 	rendring(data, data->player);
-	castallrays(data, -1);
+	castallrays(data, 0);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
 }
 

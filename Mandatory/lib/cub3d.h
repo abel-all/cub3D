@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/18 12:08:07 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:10:59 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@
 #define TILE_SIZE 50
 #define MAP_NUM_ROWS 10
 #define MAP_NUM_COLS 14
-#define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE) 
+#define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE)
 #define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+#define WIN_WIDTH1 1920
+#define WIN_HEIGHT1 1080
 #define FOV_ANGLE (60 * (M_PI / 180))
 #define WALL_STRIP_WIDTH 1
-#define NUM_OF_RAYS (WIN_WIDTH / WALL_STRIP_WIDTH)
+#define NUM_OF_RAYS (WIN_WIDTH1 / WALL_STRIP_WIDTH)
+#define SCALE_FACTOR 0.5
 
 #define MALLOC_ERR "Malloc error!\n"
 #define INIT_ERR "Mlx init error!\n"
@@ -63,6 +66,7 @@ typedef struct s_ray
 	int		isup;
 	int		isright;
 	int		isleft;
+	int		id;
 	t_point	*a;
 	t_point	*b;
 }				t_ray;
@@ -92,8 +96,11 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*mlx_win;
+	double		wall_width;
+	double		wall_height;
 	t_player	*player;
 	t_img		*img;
+	t_img		*img1;
 	t_point		*point;
 	t_ray		*ray;
 }				t_data;
@@ -106,4 +113,8 @@ void	draw_player(t_data *data, t_player *player, int y, int x);
 int 	keys_handler(int key_code, void *param);
 void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_line(t_data *data, t_point *a, t_point *b);
+void	rendring(t_data *data, t_player *player);
+void	draw_ray(t_data *data, t_ray *ray, int stripid);
+void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
+int		check_if_insidemap(double x, double y, int winwidth, int winheight);
 #endif

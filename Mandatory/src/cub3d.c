@@ -6,17 +6,13 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/18 16:07:07 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:14:49 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/cub3d.h"
 
-void	rendring(t_data *data, t_player *player)
-{
-	draw_2d_map(data);
-	draw_player(data, player, 0, 0);
-}
+
 
 int	check_if_wall(t_data *data, double x, double y)
 {
@@ -32,14 +28,14 @@ int	check_if_wall(t_data *data, double x, double y)
 	return (1);
 }
 
-int	check_if_insidemap(double x, double y)
+int	check_if_insidemap(double x, double y, int winwidth, int winheight)
 {
-    if (x >= 0 && x <= WIN_WIDTH && y >= 0 && y <= WIN_HEIGHT)
+    if (x >= 0 && x <= winwidth && y >= 0 && y <= winheight)
 		return (1);
 	return (0);
 }
 
-void	draw_ray(t_data *data, t_ray *ray)
+void	draw_ray(t_data *data, t_ray *ray, int stripid)
 {
 	ray->a = malloc(sizeof(t_point));
 	ray->b = malloc(sizeof(t_point));
@@ -48,6 +44,7 @@ void	draw_ray(t_data *data, t_ray *ray)
     ray->b->x = ray->wallhitx;
     ray->b->y = ray->wallhity;
 	draw_line(data, ray->a, ray->b);
+	rendring3dprojectionwalls(data, ray, stripid);
 }
 
 double	get_normalizeangle(double angle)
@@ -139,7 +136,7 @@ void	cast_ray(t_data *data, t_ray *ray, double rayangle, int stripid)
 	nexthorztouchx = xintersept;
 	nexthorztouchy = yintersept;
 	// increment xstep & ystep until we find a wall
-	while (check_if_insidemap(nexthorztouchx, nexthorztouchy) == 1)
+	while (check_if_insidemap(nexthorztouchx, nexthorztouchy, WIN_WIDTH, WIN_HEIGHT) == 1)
 	{
 		xcheck = nexthorztouchx;
 		ycheck = nexthorztouchy;
@@ -180,7 +177,7 @@ void	cast_ray(t_data *data, t_ray *ray, double rayangle, int stripid)
 	double nextverttouchx = xintersept;
 	double nextverttouchy = yintersept;
 	// increment xstep & ystep until we find a wall
-	while (check_if_insidemap(nextverttouchx, nextverttouchy) == 1)
+	while (check_if_insidemap(nextverttouchx, nextverttouchy, WIN_WIDTH, WIN_HEIGHT) == 1)
 	{
 		xcheck = nextverttouchx;
 		ycheck = nextverttouchy;
@@ -230,7 +227,7 @@ void	cast_ray(t_data *data, t_ray *ray, double rayangle, int stripid)
 		ray->wallhity = ray->horzwallhity;
 		ray->washitvert = 0;
 	}
-	draw_ray(data, ray);
+	draw_ray(data, ray, stripid);
 }
 
 void	castallrays(t_data *data, int i)
@@ -242,7 +239,7 @@ void	castallrays(t_data *data, int i)
 	// i = 1;
 	stripid = 0;
 	rayangle_incr = FOV_ANGLE / NUM_OF_RAYS;
-	data->ray = malloc(sizeof(t_ray) * NUM_OF_RAYS);
+	// data->ray = malloc(sizeof(t_ray) * NUM_OF_RAYS);//88//
 	// awal ray :
 	rayangle = data->player->rotationangle - (FOV_ANGLE / 2);
 	//while (++i < NUM_OF_RAYS) // loop all columns casting the rays :
@@ -264,6 +261,12 @@ void	update(t_data *data)
 	data->img->img = mlx_new_image(data->mlx, 1920, 1080);
     data->img->addr = mlx_get_data_addr(data->img->img, \
     &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
+
+	mlx_destroy_image(data->mlx, data->img1->img);
+	data->img1->img = mlx_new_image(data->mlx, 1920, 1080);
+    data->img1->addr = mlx_get_data_addr(data->img1->img, \
+    &data->img1->bits_per_pixel, &data->img1->line_length, &data->img1->endian);
+	
 	// mlx_clear_window(data->mlx, data->mlx_win);
 	data->player->rotationangle += data->player->turndirection * data->player->rotationspeed;
 	data->player->rotationangle = get_normalizeangle(data->player->rotationangle);
@@ -278,6 +281,8 @@ void	update(t_data *data)
 	// draw_player(data, data->player, 0, 0);
 	rendring(data, data->player);
 	castallrays(data, 0);
+	// rendring3dprojectionwalls(data, -1);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img1->img, 0, 0);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
 }
 
@@ -332,6 +337,7 @@ void	init_player(t_data *data)
 	data->player->rotationangle = M_PI / 2;
 	data->player->rotationspeed = 3 * (M_PI / 180);
 	data->player->movespeed = 3.0;
+	data->ray = malloc(sizeof(t_ray) * NUM_OF_RAYS);
 }
 
 int main()
@@ -347,6 +353,8 @@ int main()
     init_window(data, player);// is setup part
     init_player(data);// is setup part for player
 	rendring(data, player);// rendring map and player
+	mlx_put_image_to_window(data->mlx, data->mlx_win, \
+	data->img1->img, 0, 0);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, \
 	data->img->img, 0, 0);
 	mlx_hook(data->mlx_win, 2, 0, keypressed, data);

@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:07:36 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/18 12:10:35 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:43:29 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ void	init_window(t_data *data, t_player *player)
     data->img->img = mlx_new_image(data->mlx, 1920, 1080);
     data->img->addr = mlx_get_data_addr(data->img->img, \
     &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
+	data->img1 = malloc(sizeof(t_img));
+    data->img1->img = mlx_new_image(data->mlx, 1920, 1080);
+    data->img1->addr = mlx_get_data_addr(data->img1->img, \
+    &data->img1->bits_per_pixel, &data->img1->line_length, &data->img1->endian);
 	// mlx_put_image_to_window();
 }
 
@@ -78,10 +82,10 @@ void    draw_grid(t_data *data, int x, int y, int color)
         while (++j < TILE_SIZE)
         {
             if (color == 1)
-                my_mlx_pixel_put(data->img, i + x, j + y, 0xFFFFFF);
+                my_mlx_pixel_put(data->img, SCALE_FACTOR * (i + x), SCALE_FACTOR * (j + y), 0xFFFFFF);
                 // mlx_pixel_put(data->mlx, data->mlx_win, i + x, j + y, 0xFFFFFF);
             else if (color == 0)
-                my_mlx_pixel_put(data->img, i + x, j + y, 0x000000);
+                my_mlx_pixel_put(data->img, SCALE_FACTOR * (i + x), SCALE_FACTOR * (j + y), 0x000000);
                 // mlx_pixel_put(data->mlx, data->mlx_win, i + x, j + y, 0x000000);
         }
     }
@@ -99,9 +103,9 @@ void    draw_2d_map(t_data *data)
         while (++j < MAP_NUM_COLS)
         {
             if (map[i][j] == 1)
-                draw_grid(data, j * TILE_SIZE, i * TILE_SIZE, 1);
+                draw_grid(data, (j * TILE_SIZE), (i * TILE_SIZE), 1);
             else if (map[i][j] == 0)
-                draw_grid(data, j * TILE_SIZE, i * TILE_SIZE, 0);
+                draw_grid(data, (j * TILE_SIZE), (i * TILE_SIZE), 0);
         }
     }
 }
@@ -117,7 +121,7 @@ void	draw_line(t_data *data, t_point *a, t_point *b)
 	deltay /= n_of_pixels;
 	while (n_of_pixels--)
 	{
-		my_mlx_pixel_put(data->img, pixelx, pixely, 0xFF0000);
+		my_mlx_pixel_put(data->img, SCALE_FACTOR * pixelx, SCALE_FACTOR * pixely, 0xFF0000);
 		pixelx += deltax;
 		pixely += deltay;
 	}
@@ -143,7 +147,7 @@ void	draw_player(t_data *data, t_player *player, int y, int x)
 	{
 		y = y1 - 1;
         while (++y <= y2)
-            my_mlx_pixel_put(data->img, x, y, 0xFF0000);
+            my_mlx_pixel_put(data->img, SCALE_FACTOR * x, SCALE_FACTOR * y, 0xFF0000);
 	}
     a->x = player->x;
     a->y = player->y;
@@ -157,4 +161,78 @@ void	draw_player(t_data *data, t_player *player, int y, int x)
 	// y2 = y1 - 25;
 	// while (y1 >= y2)
     //     my_mlx_pixel_put(data->img, player->x, y1--, 0xFF0000);
+}
+
+void	rendring(t_data *data, t_player *player)
+{
+	// rendring3dprojectionwalls(data);
+	// for (int i = 0; i < NUM_OF_RAYS; i++)
+	// {
+	// 	draw_ray(data, &data->ray[i]);
+	// }
+	draw_2d_map(data);
+	draw_player(data, player, 0, 0);
+}
+
+// void    draw_rectangle(t_data *data, int x_corr, int y_corr, double wall_width, double wall_height)
+// {
+//     int x;
+//     int y;
+
+//     x = x1 - 1;
+//     while (++x <= x2)
+// 	{
+// 		y = y1 - 1;
+//         while (++y <= y2)
+//             my_mlx_pixel_put(data->img, SCALE_FACTOR * x, SCALE_FACTOR * y, 0xADD8E6);
+// 	}
+//     // i = wall_width;
+//     // while (i < wall_width)
+//     // {
+//     //     j = 0;
+//     //     while (j < wall_height)
+//     //     {
+//     //         if (check_if_insidemap(x_corr, y_corr + i))
+//     //             my_mlx_pixel_put(data->img1, x_corr, y_corr + j, 0xADD8E6);
+//     //         j++;
+//     //     }
+//     //     i++;
+//     // }
+// }
+
+void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
+{
+    double  distanceprojectionplane;
+    double  wallstripheight;
+    int x;
+    int y;
+    // loop every ray in the array of struct of rays :
+    // while (++i < NUM_OF_RAYS)
+    // {
+    // calc the distance of projection plane :
+    distanceprojectionplane = (WIN_WIDTH1 / 2) / tan(FOV_ANGLE / 2);
+    // projected wall height :
+    wallstripheight = (TILE_SIZE / (ray->distance * cos(ray->rayangle - data->player->rotationangle))) * distanceprojectionplane;
+    x = 0;
+    while (x <= WALL_STRIP_WIDTH)
+    {
+        y = 0;
+        while (y <= wallstripheight)
+        {
+            // int rgb = 255 * (wallstripheight / (double)WIN_HEIGHT1);
+            // int g = y / (double)wallstripheight * 255;
+            // int color = 255 << 16 | rgb << 8 | g;
+            if (check_if_insidemap(x + (stripid * WALL_STRIP_WIDTH), y + ((WIN_HEIGHT1 / 2) - (wallstripheight / 2)), WIN_WIDTH1, WIN_HEIGHT1))
+                my_mlx_pixel_put(data->img, x + (stripid * WALL_STRIP_WIDTH), y + ((WIN_HEIGHT1 / 2) - (wallstripheight / 2)), 0xADD8E6);
+            y++;
+        }
+        x++;
+    }
+    // if (check_if_insidemap(x_corr, y_corr + i))
+    // my_mlx_pixel_put(data->img, x_corr, y_corr + j, 0xADD8E6);
+    // data->wall_width = WALL_STRIP_WIDTH;
+    // data->wall_height = wallstripheight;
+    // draw_rectangle(data, (i * WALL_STRIP_WIDTH), (WIN_HEIGHT1 / 2) - (wallstripheight / 2));
+    // draw_rectangle(data, i * WALL_STRIP_WIDTH, 50);
+    // mlx_put_image_to_window(data->mlx, data->mlx_win, data->img1->img, 0, 0);
 }

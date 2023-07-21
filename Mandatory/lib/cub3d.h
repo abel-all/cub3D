@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/19 15:10:59 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:59:27 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # define D 2
 # define A 0
 # define ESC 53
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+
+
 
 #define TILE_SIZE 50
 #define MAP_NUM_ROWS 10
@@ -77,6 +81,7 @@ typedef struct s_player
 	double	y;
 	double	width;
 	double	height;
+	int		left_right;
 	int		turndirection; // =0 / -1 for left, +1 for right
 	int		walkdirection; // =0 / -1 for back, +1 for front
 	double	rotationangle; // PI / 2

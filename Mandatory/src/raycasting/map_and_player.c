@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:07:36 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/19 15:43:29 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:05:47 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
+    {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -29,9 +29,10 @@ void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + (x * (img->bits_per_pixel / 8)));
 	*(unsigned int*)dst = color;
 }
+
 
 int	ft_strlen(char *s)
 {
@@ -60,7 +61,7 @@ void	init_window(t_data *data, t_player *player)
 	data->player = player;
 	data->point = malloc(sizeof(t_point));
 	data->img = malloc(sizeof(t_img));
-    data->img->img = mlx_new_image(data->mlx, 1920, 1080);
+    data->img->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
     data->img->addr = mlx_get_data_addr(data->img->img, \
     &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
 	data->img1 = malloc(sizeof(t_img));
@@ -165,40 +166,14 @@ void	draw_player(t_data *data, t_player *player, int y, int x)
 
 void	rendring(t_data *data, t_player *player)
 {
-	// rendring3dprojectionwalls(data);
-	// for (int i = 0; i < NUM_OF_RAYS; i++)
-	// {
-	// 	draw_ray(data, &data->ray[i]);
-	// }
 	draw_2d_map(data);
 	draw_player(data, player, 0, 0);
 }
 
-// void    draw_rectangle(t_data *data, int x_corr, int y_corr, double wall_width, double wall_height)
-// {
-//     int x;
-//     int y;
-
-//     x = x1 - 1;
-//     while (++x <= x2)
-// 	{
-// 		y = y1 - 1;
-//         while (++y <= y2)
-//             my_mlx_pixel_put(data->img, SCALE_FACTOR * x, SCALE_FACTOR * y, 0xADD8E6);
-// 	}
-//     // i = wall_width;
-//     // while (i < wall_width)
-//     // {
-//     //     j = 0;
-//     //     while (j < wall_height)
-//     //     {
-//     //         if (check_if_insidemap(x_corr, y_corr + i))
-//     //             my_mlx_pixel_put(data->img1, x_corr, y_corr + j, 0xADD8E6);
-//     //         j++;
-//     //     }
-//     //     i++;
-//     // }
-// }
+int create_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
 
 void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
 {
@@ -206,6 +181,9 @@ void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
     double  wallstripheight;
     int x;
     int y;
+    double  wall_top;
+    double  wall_bottom;
+    int  color_intensity;
     // loop every ray in the array of struct of rays :
     // while (++i < NUM_OF_RAYS)
     // {
@@ -213,26 +191,39 @@ void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
     distanceprojectionplane = (WIN_WIDTH1 / 2) / tan(FOV_ANGLE / 2);
     // projected wall height :
     wallstripheight = (TILE_SIZE / (ray->distance * cos(ray->rayangle - data->player->rotationangle))) * distanceprojectionplane;
+    wall_top = (WIN_HEIGHT1 / 2) - (wallstripheight / 2);
+    if (wall_top < 0)
+        wall_top = 0;
+    wall_bottom = wall_top + wallstripheight;
+    if (wall_bottom >= WIN_HEIGHT1)
+        wall_bottom = WIN_HEIGHT1 - 1;
+    if (ray->washitvert == 1)
+        color_intensity = 145;
+    else
+        color_intensity = 100;
     x = 0;
-    while (x <= WALL_STRIP_WIDTH)
+    while (x < WALL_STRIP_WIDTH)
     {
         y = 0;
-        while (y <= wallstripheight)
+        while (y < wall_top)
         {
-            // int rgb = 255 * (wallstripheight / (double)WIN_HEIGHT1);
-            // int g = y / (double)wallstripheight * 255;
-            // int color = 255 << 16 | rgb << 8 | g;
-            if (check_if_insidemap(x + (stripid * WALL_STRIP_WIDTH), y + ((WIN_HEIGHT1 / 2) - (wallstripheight / 2)), WIN_WIDTH1, WIN_HEIGHT1))
-                my_mlx_pixel_put(data->img, x + (stripid * WALL_STRIP_WIDTH), y + ((WIN_HEIGHT1 / 2) - (wallstripheight / 2)), 0xADD8E6);
+            my_mlx_pixel_put(data->img1, x + (stripid * WALL_STRIP_WIDTH), y, create_rgb(0, 128, 255));
+            y++;
+        }
+        y =  wall_top;
+        while (y < wall_bottom)
+        {
+            int color = create_rgb(color_intensity, color_intensity, color_intensity);
+            if (check_if_insidemap(x + (stripid * WALL_STRIP_WIDTH), y, WIN_WIDTH1, WIN_HEIGHT1))
+                my_mlx_pixel_put(data->img1, x + (stripid * WALL_STRIP_WIDTH), y, color);
+            y++;
+        }
+        y = wall_bottom;
+        while (y < WIN_HEIGHT1)
+        {
+            my_mlx_pixel_put(data->img1, x + (stripid * WALL_STRIP_WIDTH), y, create_rgb(0, 102, 0));
             y++;
         }
         x++;
     }
-    // if (check_if_insidemap(x_corr, y_corr + i))
-    // my_mlx_pixel_put(data->img, x_corr, y_corr + j, 0xADD8E6);
-    // data->wall_width = WALL_STRIP_WIDTH;
-    // data->wall_height = wallstripheight;
-    // draw_rectangle(data, (i * WALL_STRIP_WIDTH), (WIN_HEIGHT1 / 2) - (wallstripheight / 2));
-    // draw_rectangle(data, i * WALL_STRIP_WIDTH, 50);
-    // mlx_put_image_to_window(data->mlx, data->mlx_win, data->img1->img, 0, 0);
 }

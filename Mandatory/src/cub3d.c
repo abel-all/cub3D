@@ -6,13 +6,11 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/19 15:14:49 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:01:56 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/cub3d.h"
-
-
 
 int	check_if_wall(t_data *data, double x, double y)
 {
@@ -258,7 +256,7 @@ void	update(t_data *data)
 	double	new_py;
 	
 	mlx_destroy_image(data->mlx, data->img->img);
-	data->img->img = mlx_new_image(data->mlx, 1920, 1080);
+	data->img->img = mlx_new_image(data->mlx, SCALE_FACTOR * WIN_WIDTH,SCALE_FACTOR * WIN_HEIGHT);
     data->img->addr = mlx_get_data_addr(data->img->img, \
     &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
 
@@ -295,9 +293,13 @@ int	keypressed(int key_code, void	*param)
 		data->player->walkdirection = 1;
 	else if (key_code == S )//&& map[x->p_y + 1][x->p_x] != '1')
 		data->player->walkdirection = -1;
-	else if (key_code == D )//&& map[x->p_y][x->p_x + 1] != '1')
+	if (key_code == A) //&& map[x->p_y - 1][x->p_x] != '1')
+		data->player->left_right = 1;
+	else if (key_code == D)//&& map[x->p_y + 1][x->p_x] != '1')
+		data->player->left_right = -1;
+	else if (key_code == KEY_RIGHT)//&& map[x->p_y][x->p_x + 1] != '1')
 		data->player->turndirection = 1;
-	else if (key_code == A )//&& map[x->p_y][x->p_x - 1] != '1')
+	else if (key_code == KEY_LEFT)//&& map[x->p_y][x->p_x - 1] != '1')
 		data->player->turndirection = -1;
 	else if (key_code == ESC)
 		exit(1);
@@ -314,9 +316,13 @@ int	keyreleased(int key_code, void	*param)
 		data->player->walkdirection = 0;
 	else if (key_code == S )//&& map[x->p_y + 1][x->p_x] != '1')
 		data->player->walkdirection = 0;
-	else if (key_code == D )//&& map[x->p_y][x->p_x + 1] != '1')
+	if (key_code == A) //&& map[x->p_y - 1][x->p_x] != '1')
+		data->player->left_right = 0;
+	else if (key_code == D)//&& map[x->p_y + 1][x->p_x] != '1')
+		data->player->left_right = 0;
+	else if (key_code == KEY_RIGHT)//&& map[x->p_y][x->p_x + 1] != '1')
 		data->player->turndirection = 0;
-	else if (key_code == A )//&& map[x->p_y][x->p_x - 1] != '1')
+	else if (key_code == KEY_LEFT)//&& map[x->p_y][x->p_x - 1] != '1')
 		data->player->turndirection = 0;
 	return (key_code);
 }
@@ -340,6 +346,23 @@ void	init_player(t_data *data)
 	data->ray = malloc(sizeof(t_ray) * NUM_OF_RAYS);
 }
 
+// int	ft_rendring(void *param)
+// {
+// 	t_data *data;
+// 	data = (t_data *)param;
+	
+// 	rendring(data, data->player);
+// 	int i = 0;
+// 	while (i < NUM_OF_RAYS)
+// 	{
+// 		draw_ray(data, &data->ray[i], i);
+// 		i++;
+// 	}
+// 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img1->img, 0, 0);
+// 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
+// 	return (1);
+// }
+
 int main()
 {
 	t_data	    *data;
@@ -353,13 +376,13 @@ int main()
     init_window(data, player);// is setup part
     init_player(data);// is setup part for player
 	rendring(data, player);// rendring map and player
-	mlx_put_image_to_window(data->mlx, data->mlx_win, \
-	data->img1->img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, \
-	data->img->img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, \
+	// data->img1->img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, \
+	// data->img->img, 0, 0);
 	mlx_hook(data->mlx_win, 2, 0, keypressed, data);
 	mlx_hook(data->mlx_win, 3, 0, keyreleased, data);
 	mlx_hook(data->mlx_win, 17, 0, exit_status, NULL);
-	// mlx_key_hook(data->mlx_win, keys_handler, data);
+	// mlx_loop_hook(data->mlx, ft_rendring, data);
 	mlx_loop(data->mlx);
 }

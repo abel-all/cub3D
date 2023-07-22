@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:07:36 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/20 17:05:47 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/22 09:20:10 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
     if (wall_bottom >= WIN_HEIGHT1)
         wall_bottom = WIN_HEIGHT1 - 1;
     if (ray->washitvert == 1)
-        color_intensity = 145;
+        color_intensity = 140;
     else
         color_intensity = 100;
     x = 0;
@@ -213,7 +213,7 @@ void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
         y =  wall_top;
         while (y < wall_bottom)
         {
-            int color = create_rgb(color_intensity, color_intensity, color_intensity);
+           int color = create_rgb(color_intensity, color_intensity, color_intensity);
             if (check_if_insidemap(x + (stripid * WALL_STRIP_WIDTH), y, WIN_WIDTH1, WIN_HEIGHT1))
                 my_mlx_pixel_put(data->img1, x + (stripid * WALL_STRIP_WIDTH), y, color);
             y++;

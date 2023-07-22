@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/20 17:59:27 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/22 10:49:11 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@
 
 
 
-#define TILE_SIZE 50
+#define TILE_SIZE 20
 #define MAP_NUM_ROWS 10
 #define MAP_NUM_COLS 14
 #define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE)
 #define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 #define WIN_WIDTH1 1920
 #define WIN_HEIGHT1 1080
+#define MINI_WIDTH 200
 #define FOV_ANGLE (60 * (M_PI / 180))
 #define WALL_STRIP_WIDTH 1
 #define NUM_OF_RAYS (WIN_WIDTH1 / WALL_STRIP_WIDTH)
@@ -48,6 +49,7 @@
 #define NEW_WIN_ERR "Mlx new window error!\n"
 
 extern int map[MAP_NUM_ROWS][MAP_NUM_COLS];
+
 
 typedef struct s_point
 {

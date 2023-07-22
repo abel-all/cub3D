@@ -6,7 +6,7 @@
 #    By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/07/13 07:15:57 by abel-all         ###   ########.fr        #
+#    Updated: 2023/07/22 13:24:37 by abel-all         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS	=	-g #-Wall -Wextra -Werror
 
 HEADERS	= 	lib/cub3d.h
 
-SRCS	= 	src/cub3d.c src/raycasting/map_and_player.c src/raycasting/player_movement.c
+SRCS	= 	src/cub3d.c src/raycasting/raycasting_calcule.c src/raycasting/player_movement.c\
+			src/raycasting/utils_for_calcule.c src/raycasting/init_data.c src/raycasting/map_and_player.c src/raycasting/player_movement.c
 
 OBJS	= 	$(SRCS:.c=.o)
 

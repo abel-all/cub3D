@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:07:36 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/22 09:20:10 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:26:00 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,6 @@ void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-
-int	ft_strlen(char *s)
-{
-	int	i;
-	
-	i = -1;
-	while (s[++i])
-		;
-	return (i);
-}
-
-int	ft_error(char *err)
-{
-	write(2, err, ft_strlen(err));
-	exit(EXIT_FAILURE);
-}
-
-void	init_window(t_data *data, t_player *player)
-{
-	data->mlx = mlx_init();
-	if (!data->mlx)
-		ft_error(INIT_ERR);
-	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "cub3D");
-	if (!data->mlx_win)
-		ft_error(NEW_WIN_ERR);
-	data->player = player;
-	data->point = malloc(sizeof(t_point));
-	data->img = malloc(sizeof(t_img));
-    data->img->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-    data->img->addr = mlx_get_data_addr(data->img->img, \
-    &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
-	data->img1 = malloc(sizeof(t_img));
-    data->img1->img = mlx_new_image(data->mlx, 1920, 1080);
-    data->img1->addr = mlx_get_data_addr(data->img1->img, \
-    &data->img1->bits_per_pixel, &data->img1->line_length, &data->img1->endian);
-	// mlx_put_image_to_window();
-}
 
 void    draw_grid(t_data *data, int x, int y, int color)
 {

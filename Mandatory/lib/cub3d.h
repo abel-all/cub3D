@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/22 10:49:11 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:25:28 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,15 +113,35 @@ typedef struct s_data
 }				t_data;
 
 
-int		ft_error(char *err);
 void	init_window(t_data *data, t_player *player);
 void    draw_2d_map(t_data *data);
 void	draw_player(t_data *data, t_player *player, int y, int x);
-int 	keys_handler(int key_code, void *param);
 void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_line(t_data *data, t_point *a, t_point *b);
 void	rendring(t_data *data, t_player *player);
 void	draw_ray(t_data *data, t_ray *ray, int stripid);
 void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
 int		check_if_insidemap(double x, double y, int winwidth, int winheight);
+/*RAYCASTING*/
+int	keypressed(int key_code, void	*param);
+void	update(t_data *data);
+int	check_if_wall(t_data *data, double x, double y);
+
+/*RAYCASTING UTILS*/
+double	distance_betwn_ab(double x1, double y1, double x2, double y2);
+void	init_ray(t_ray *ray, double rayangle);
+int	chek_if_isleft(t_ray *ray);
+int	chek_if_isright(t_ray *ray);
+int	chek_if_isup(t_ray *ray);
+int	chek_if_isdown(t_ray *ray);
+double	get_normalizeangle(double angle);
+int	check_if_insidemap(double x, double y, int winwidth, int winheight);
+
+/*INIT DATA*/
+void	init_player(t_data *data);
+void	init_window(t_data *data, t_player *player);
+int	ft_strlen(char *s);
+int		ft_error(char *err);
+int	exit_status(int key_code, void	*param);
+
 #endif

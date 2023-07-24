@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/22 13:25:28 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/24 13:21:51 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	draw_player(t_data *data, t_player *player, int y, int x);
 void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_line(t_data *data, t_point *a, t_point *b);
 void	rendring(t_data *data, t_player *player);
-void	draw_ray(t_data *data, t_ray *ray, int stripid);
+// void	draw_ray(t_data *data, t_ray *ray, int stripid);
 void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
 int		check_if_insidemap(double x, double y, int winwidth, int winheight);
 /*RAYCASTING*/
@@ -143,5 +143,14 @@ void	init_window(t_data *data, t_player *player);
 int	ft_strlen(char *s);
 int		ft_error(char *err);
 int	exit_status(int key_code, void	*param);
+
+/*RENDRING*/
+void	rendring_minimap(t_data *data);
+void	new_draw_line(t_data *data, t_point *a, t_point *b);
+int get_color(int x, int y);
+int	ft_rendring(void *param);
+void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
+int create_rgb(int r, int g, int b);
+
 
 #endif

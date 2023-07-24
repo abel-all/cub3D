@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:00:29 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/22 13:07:01 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:48:40 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	cast_ray(t_data *data, t_ray *ray, double rayangle, int stripid)
 	double	nexthorztouchy;
 	int		foundhorzwallhit = 0;
 	int		foundvertwallhit = 0;
-
 	init_ray(ray, rayangle);
 	
 	/*===============================================*/
@@ -142,55 +141,29 @@ void	cast_ray(t_data *data, t_ray *ray, double rayangle, int stripid)
 
 void	castallrays(t_data *data, int i)
 {
-	int		stripid;
 	double	rayangle;
 	double	rayangle_incr;
 
-	// i = 1;
-	stripid = 0;
 	rayangle_incr = FOV_ANGLE / NUM_OF_RAYS;
-	// data->ray = malloc(sizeof(t_ray) * NUM_OF_RAYS);//88//
 	// awal ray :
 	rayangle = data->player->rotationangle - (FOV_ANGLE / 2);
-	//while (++i < NUM_OF_RAYS) // loop all columns casting the rays :
-	while (stripid < NUM_OF_RAYS) // loop all columns casting the rays :
+	while (i < NUM_OF_RAYS) // loop all columns casting the rays :
 	{
-		cast_ray(data, &data->ray[stripid], rayangle, stripid);
+		cast_ray(data, &data->ray[i], rayangle, i);
 		rayangle += rayangle_incr;
-		stripid++;
+		i++;
 	}
 }
 
 void	update(t_data *data)
 {
-	double	movestep;
-	double	new_px = 0;
-	double	new_py = 0;
+	double	new_px;
+	double	new_py;
 	
-	mlx_destroy_image(data->mlx, data->img->img);
-	data->img->img = mlx_new_image(data->mlx, MINI_WIDTH, MINI_WIDTH);
-    data->img->addr = mlx_get_data_addr(data->img->img, \
-    &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
-
-	mlx_destroy_image(data->mlx, data->img1->img);
-	data->img1->img = mlx_new_image(data->mlx, 1920, 1080);
-    data->img1->addr = mlx_get_data_addr(data->img1->img, \
-    &data->img1->bits_per_pixel, &data->img1->line_length, &data->img1->endian);
-	
+	destroy_and_create_img(data);
 	data->player->rotationangle += data->player->turndirection * data->player->rotationspeed;
 	data->player->rotationangle = get_normalizeangle(data->player->rotationangle);
-	if (data->player->walkdirection != 0)
-	{
-		movestep = data->player->walkdirection * data->player->movespeed;
-		new_px =  cos(data->player->rotationangle) * movestep;
-		new_py = sin(data->player->rotationangle) * movestep;
-	}
-	else if (data->player->left_right != 0)
-	{
-		movestep = data->player->left_right * data->player->movespeed;
-		new_px =  cos(data->player->rotationangle - M_PI_2) * movestep;
-		new_py = sin(data->player->rotationangle - M_PI_2) * movestep;
-	}
+	generate_new_player_corr(data, &new_px, &new_py);
 	if (!check_if_wall(data, new_px + data->player->x, new_py + data->player->y))
 	{
 		data->player->x += new_px;

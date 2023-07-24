@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/24 13:19:50 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:44:49 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
         y = 0;
         while (y < wall_top)
         {
-            my_mlx_pixel_put(data->img1, x + (stripid * WALL_STRIP_WIDTH), y, create_rgb(0, 128, 255));
+            my_mlx_pixel_put(data->view, x + (stripid * WALL_STRIP_WIDTH), y, create_rgb(0, 128, 255));
             y++;
         }
         y =  wall_top;
@@ -49,13 +49,13 @@ void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
         {
            int color = create_rgb(color_intensity, color_intensity, color_intensity);
             if (check_if_insidemap(x + (stripid * WALL_STRIP_WIDTH), y, WIN_WIDTH1, WIN_HEIGHT1))
-                my_mlx_pixel_put(data->img1, x + (stripid * WALL_STRIP_WIDTH), y, color);
+                my_mlx_pixel_put(data->view, x + (stripid * WALL_STRIP_WIDTH), y, color);
             y++;
         }
         y = wall_bottom;
         while (y < WIN_HEIGHT1)
         {
-            my_mlx_pixel_put(data->img1, x + (stripid * WALL_STRIP_WIDTH), y, create_rgb(0, 102, 0));
+            my_mlx_pixel_put(data->view, x + (stripid * WALL_STRIP_WIDTH), y, create_rgb(0, 102, 0));
             y++;
         }
         x++;
@@ -74,7 +74,7 @@ int	ft_rendring(void *param)
 	rendring3dprojectionwalls(data, &data->ray[i], i);
 		i++;
 	}
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img1->img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 20, 850);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->view->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->minimap->img, 20, 850);
 	return (1);
 }

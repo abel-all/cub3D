@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:10:43 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/24 13:11:26 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:43:29 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	rendring_minimap(t_data *data)
 			if (dis  < ((MINI_WIDTH / 2) - 8))
 			{
 			color = get_color(i + x, y + j);
-				my_mlx_pixel_put(data->img, i, j, color);
+				my_mlx_pixel_put(data->minimap, i, j, color);
 				
 			}
 			else if (dis >= ((MINI_WIDTH / 2) - 8) && dis < (MINI_WIDTH / 2) )
-			my_mlx_pixel_put(data->img, i, j, 0xaa4500);
+			my_mlx_pixel_put(data->minimap, i, j, 0xaa4500);
 			else
-				my_mlx_pixel_put(data->img, i, j, 0xff000000);
+				my_mlx_pixel_put(data->minimap, i, j, 0xff000000);
 	
 			j++;
 		}
@@ -53,7 +53,7 @@ void	rendring_minimap(t_data *data)
 	{
 		j = 0;
         while (++j < data->player->height )
-            my_mlx_pixel_put(data->img, x + i, y + j, 0xFF0000);
+            my_mlx_pixel_put(data->minimap, x + i, y + j, 0xFF0000);
 	}
 	
     a->x = (MINI_WIDTH / 2);

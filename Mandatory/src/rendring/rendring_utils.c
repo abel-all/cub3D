@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:13:53 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/24 13:27:46 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:44:02 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	new_draw_line(t_data *data, t_point *a, t_point *b)
 	deltay /= n_of_pixels;
 	while (n_of_pixels--)
 	{
-		my_mlx_pixel_put(data->img, pixelx, pixely, 0xFF0000);
+		my_mlx_pixel_put(data->minimap, pixelx, pixely, 0xFF0000);
 		pixelx += deltax;
 		pixely += deltay;
 	}
@@ -45,11 +45,11 @@ void	new_draw_line(t_data *data, t_point *a, t_point *b)
 int get_color(int x, int y)
 {
 	if (x < 0 || x > WIN_WIDTH  || y < 0 || y > WIN_HEIGHT)
-	return 0xFF0000;
+	return 0x009D9C;
 	int mx = x / TILE_SIZE;
 	int my = y / TILE_SIZE;
 	if (map[my][mx] == 1)
 	 	return 0xBABABA;
 	else 
-	return 0x006600;	 
+	return 0x000000;	 
 }

@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/24 13:21:51 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:49:28 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,22 +106,21 @@ typedef struct s_data
 	double		wall_width;
 	double		wall_height;
 	t_player	*player;
-	t_img		*img;
-	t_img		*img1;
+	t_img		*minimap;
+	t_img		*view;
 	t_point		*point;
 	t_ray		*ray;
 }				t_data;
 
 
-void	init_window(t_data *data, t_player *player);
-void    draw_2d_map(t_data *data);
-void	draw_player(t_data *data, t_player *player, int y, int x);
-void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	draw_line(t_data *data, t_point *a, t_point *b);
-void	rendring(t_data *data, t_player *player);
+// void	init_window(t_data *data);
+// void    draw_2d_map(t_data *data);
+// void	draw_player(t_data *data, t_player *player, int y, int x);
+// void	draw_line(t_data *data, t_point *a, t_point *b);
+// void	rendring(t_data *data, t_player *player);
 // void	draw_ray(t_data *data, t_ray *ray, int stripid);
-void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
-int		check_if_insidemap(double x, double y, int winwidth, int winheight);
+// void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
+// int		check_if_insidemap(double x, double y, int winwidth, int winheight);
 /*RAYCASTING*/
 int	keypressed(int key_code, void	*param);
 void	update(t_data *data);
@@ -129,20 +128,24 @@ int	check_if_wall(t_data *data, double x, double y);
 
 /*RAYCASTING UTILS*/
 double	distance_betwn_ab(double x1, double y1, double x2, double y2);
-void	init_ray(t_ray *ray, double rayangle);
 int	chek_if_isleft(t_ray *ray);
 int	chek_if_isright(t_ray *ray);
 int	chek_if_isup(t_ray *ray);
 int	chek_if_isdown(t_ray *ray);
 double	get_normalizeangle(double angle);
 int	check_if_insidemap(double x, double y, int winwidth, int winheight);
+void	create_img(t_data *data, t_img *img, int flag, int i);
+void	destroy_and_create_img(t_data *data);
+void	generate_new_player_corr(t_data *data, double *new_px, double *new_py);
+
 
 /*INIT DATA*/
 void	init_player(t_data *data);
-void	init_window(t_data *data, t_player *player);
+void	init_window(t_data *data);
 int	ft_strlen(char *s);
 int		ft_error(char *err);
 int	exit_status(int key_code, void	*param);
+void	init_ray(t_ray *ray, double rayangle);
 
 /*RENDRING*/
 void	rendring_minimap(t_data *data);
@@ -151,6 +154,7 @@ int get_color(int x, int y);
 int	ft_rendring(void *param);
 void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
 int create_rgb(int r, int g, int b);
+void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 
 #endif

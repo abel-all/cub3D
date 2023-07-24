@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/24 13:27:30 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:20:08 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,11 @@ int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 int main()
 {
 	t_data	    *data;
-	t_player	*player;
-	t_img		*img;
 
 	data = malloc(sizeof(t_data));
-	player = malloc(sizeof(t_player));
 	if (!data)
 		ft_error(MALLOC_ERR);
-    init_window(data, player);// is setup part
+    init_window(data);// is setup part
     init_player(data);// is setup part for player
 	update(data);
 	ft_rendring(data);

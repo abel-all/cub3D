@@ -6,13 +6,27 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:12:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/22 13:13:42 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:49:11 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 
-void	init_window(t_data *data, t_player *player)
+void	init_ray(t_ray *ray, double rayangle)
+{
+	ray->rayangle = get_normalizeangle(rayangle);
+	ray->isdown = chek_if_isdown(ray);
+	ray->isup = chek_if_isup(ray);
+	ray->isright = chek_if_isright(ray);
+	ray->isleft = chek_if_isleft(ray);
+	ray->distance = 0;
+	ray->horzwallhitx = 0;
+	ray->horzwallhity = 0;
+	ray->vertwallhitx = 0;
+	ray->vertwallhity = 0;
+}
+
+void	init_window(t_data *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
@@ -20,17 +34,21 @@ void	init_window(t_data *data, t_player *player)
 	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "cub3D");
 	if (!data->mlx_win)
 		ft_error(NEW_WIN_ERR);
-	data->player = player;
-	data->point = malloc(sizeof(t_point));
-	data->img = malloc(sizeof(t_img));
-    data->img->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-    data->img->addr = mlx_get_data_addr(data->img->img, \
-    &data->img->bits_per_pixel, &data->img->line_length, &data->img->endian);
-	data->img1 = malloc(sizeof(t_img));
-    data->img1->img = mlx_new_image(data->mlx, 1920, 1080);
-    data->img1->addr = mlx_get_data_addr(data->img1->img, \
-    &data->img1->bits_per_pixel, &data->img1->line_length, &data->img1->endian);
-	// mlx_put_image_to_window();
+	data->player = malloc(sizeof(t_player));
+	if (!data->player)
+		ft_error(MALLOC_ERR);
+	data->minimap = malloc(sizeof(t_img));
+	if (!data->minimap)
+		ft_error(MALLOC_ERR);
+    data->minimap->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
+    data->minimap->addr = mlx_get_data_addr(data->minimap->img, \
+    &data->minimap->bits_per_pixel, &data->minimap->line_length, &data->minimap->endian);
+	data->view = malloc(sizeof(t_img));
+	if (!data->view)
+		ft_error(MALLOC_ERR);
+    data->view->img = mlx_new_image(data->mlx, 1920, 1080);
+    data->view->addr = mlx_get_data_addr(data->view->img, \
+    &data->view->bits_per_pixel, &data->view->line_length, &data->view->endian);
 }
 
 void	init_player(t_data *data)

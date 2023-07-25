@@ -6,60 +6,68 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/24 15:44:49 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/25 13:29:23 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 
+void    rendring_walls(t_data *data, int stripid)
+{
+    data->x = -1;
+    while (++data->x < WALL_STRIP_WIDTH)
+    {
+        data->y = -1;
+        while (++data->y < data->wall_top)
+            my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, create_rgb(0, 128, 255));
+        data->y =  data->wall_top - 1;
+        while (++data->y < data->wall_bottom)
+        {
+            data->color = create_rgb(data->color_intensity, data->color_intensity, data->color_intensity);
+            if (check_if_insidemap(data->x + (stripid * WALL_STRIP_WIDTH), data->y, WIN_WIDTH1, WIN_HEIGHT1))
+                my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, data->color);
+        }
+        data->y = data->wall_bottom - 1;
+        while (++data->y < WIN_HEIGHT1)
+            my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, create_rgb(0, 102, 0));
+    }
+}
+
 void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
 {
-    double  distanceprojectionplane;
-    double  wallstripheight;
-    int x;
-    int y;
-    double  wall_top;
-    double  wall_bottom;
-    int  color_intensity;
     // calc the distance of projection plane :
-    distanceprojectionplane = (WIN_WIDTH1 / 2) / tan(FOV_ANGLE / 2);
+    data->disprojplane = (WIN_WIDTH1 / 2) / tan(FOV_ANGLE / 2);
     // projected wall height :
-    wallstripheight = (TILE_SIZE / (ray->distance * cos(ray->rayangle - data->player->rotationangle))) * distanceprojectionplane;
-    wall_top = (WIN_HEIGHT1 / 2) - (wallstripheight / 2);
-    if (wall_top < 0)
-        wall_top = 0;
-    wall_bottom = wall_top + wallstripheight;
-    if (wall_bottom >= WIN_HEIGHT1)
-        wall_bottom = WIN_HEIGHT1 - 1;
+    data->wallstripheight = (TILE_SIZE / (ray->distance * cos(ray->rayangle -\
+    data->player->rotationangle))) * data->disprojplane;
+    data->wall_top = (WIN_HEIGHT1 / 2) - (data->wallstripheight / 2);
+    if (data->wall_top < 0)
+        data->wall_top = 0;
+    data->wall_bottom = data->wall_top + data->wallstripheight;
+    if (data->wall_bottom >= WIN_HEIGHT1)
+        data->wall_bottom = WIN_HEIGHT1 - 1;
     if (ray->washitvert == 1)
-        color_intensity = 140;
+        data->color_intensity = 140;
     else
-        color_intensity = 100;
-    x = 0;
-    while (x < WALL_STRIP_WIDTH)
-    {
-        y = 0;
-        while (y < wall_top)
-        {
-            my_mlx_pixel_put(data->view, x + (stripid * WALL_STRIP_WIDTH), y, create_rgb(0, 128, 255));
-            y++;
-        }
-        y =  wall_top;
-        while (y < wall_bottom)
-        {
-           int color = create_rgb(color_intensity, color_intensity, color_intensity);
-            if (check_if_insidemap(x + (stripid * WALL_STRIP_WIDTH), y, WIN_WIDTH1, WIN_HEIGHT1))
-                my_mlx_pixel_put(data->view, x + (stripid * WALL_STRIP_WIDTH), y, color);
-            y++;
-        }
-        y = wall_bottom;
-        while (y < WIN_HEIGHT1)
-        {
-            my_mlx_pixel_put(data->view, x + (stripid * WALL_STRIP_WIDTH), y, create_rgb(0, 102, 0));
-            y++;
-        }
-        x++;
-    }
+        data->color_intensity = 100;
+    rendring_walls(data, stripid);
+    // data->x = -1;
+    // while (++data->x < WALL_STRIP_WIDTH)
+    // {
+    //     data->y = -1;
+    //     while (++data->y < data->wall_top)
+    //         my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, create_rgb(0, 128, 255));
+    //     data->y =  data->wall_top - 1;
+    //     while (++data->y < data->wall_bottom)
+    //     {
+    //         data->color = create_rgb(data->color_intensity, data->color_intensity, data->color_intensity);
+    //         if (check_if_insidemap(data->x + (stripid * WALL_STRIP_WIDTH), data->y, WIN_WIDTH1, WIN_HEIGHT1))
+    //             my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, data->color);
+    //     }
+    //     data->y = data->wall_bottom - 1;
+    //     while (++data->y < WIN_HEIGHT1)
+    //         my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, create_rgb(0, 102, 0));
+    // }
 }
 
 int	ft_rendring(void *param)
@@ -67,11 +75,11 @@ int	ft_rendring(void *param)
 	t_data *data;
 
 	data = (t_data *)param;
-	rendring_minimap(data);
+	rendring_minimap(data, 0, 0);
 	int i = 0;
 	while (i < NUM_OF_RAYS)
 	{
-	rendring3dprojectionwalls(data, &data->ray[i], i);
+	    rendring3dprojectionwalls(data, &data->ray[i], i);
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->view->img, 0, 0);

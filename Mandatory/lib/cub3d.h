@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/24 17:49:28 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/25 13:26:31 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,17 +110,34 @@ typedef struct s_data
 	t_img		*view;
 	t_point		*point;
 	t_ray		*ray;
+	double	xintersept;
+	double	yintersept;
+	double	xstep;
+	double	ystep;
+	double	nexttouchx;
+	double	nexttouchy;
+	double	xcheck;
+	double	ycheck;
+	int		foundhorzwallhit;
+	int		foundvertwallhit;
+	double horzhitdis;
+	double verthitdis;
+	int i;
+	int j;
+	double deltax;
+	double deltay;
+	double pixelx;
+	double pixely;
+	double  disprojplane;
+    double  wallstripheight;
+    int x;
+    int y;
+    double  wall_top;
+    double  wall_bottom;
+    int  color_intensity;
+	int color;
 }				t_data;
 
-
-// void	init_window(t_data *data);
-// void    draw_2d_map(t_data *data);
-// void	draw_player(t_data *data, t_player *player, int y, int x);
-// void	draw_line(t_data *data, t_point *a, t_point *b);
-// void	rendring(t_data *data, t_player *player);
-// void	draw_ray(t_data *data, t_ray *ray, int stripid);
-// void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
-// int		check_if_insidemap(double x, double y, int winwidth, int winheight);
 /*RAYCASTING*/
 int	keypressed(int key_code, void	*param);
 void	update(t_data *data);
@@ -148,8 +165,8 @@ int	exit_status(int key_code, void	*param);
 void	init_ray(t_ray *ray, double rayangle);
 
 /*RENDRING*/
-void	rendring_minimap(t_data *data);
-void	new_draw_line(t_data *data, t_point *a, t_point *b);
+void	rendring_minimap(t_data *data, int x, int y);
+void	draw_line(t_data *data, t_point a, t_point b);
 int get_color(int x, int y);
 int	ft_rendring(void *param);
 void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);

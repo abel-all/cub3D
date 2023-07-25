@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:12:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/24 17:49:11 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/25 13:33:37 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	init_player(t_data *data)
 {
 	data->player->x = ((MAP_NUM_COLS * TILE_SIZE) / 2);
 	data->player->y = ((MAP_NUM_ROWS * TILE_SIZE) / 2);
-	data->player->height = 8;
-	data->player->width = 8;
+	data->player->height = 2;
+	data->player->width = 2;
 	data->player->turndirection = 0;
 	data->player->walkdirection = 0;
 	data->player->rotationangle = M_PI / 2;

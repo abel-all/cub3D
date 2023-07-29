@@ -6,13 +6,13 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 00:25:06 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/07/22 00:29:53 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/07/29 21:15:21 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(char *str)
 {
 	int	dex;
 	int	sign;

@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/07/22 00:44:11 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/07/29 21:23:03 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,10 @@ void	put_spaces(t_data *data)
 	{
 		j = 0;
 		while (data->map[i][j] != '\n' && data->map[i][j] != '\0')
-			map[j++] = data->map[i][j];
+		{
+			map[j] = data->map[i][j];
+			j++;
+		}
 		while (j < data->l_line)
 			map[j++] = ' ';
 		map[j] = '\0';
@@ -330,9 +333,7 @@ int	red(t_data *data)
 		}
 		tmp = get_next_line(fd);
 	}
-	if (check_lines(data) == 1)
-		printf("Every think is good\n");
-	else
+	if (check_lines(data) != 1)
 		return (-1);
 	return (0);
 }
@@ -351,38 +352,17 @@ int	check_name(t_data *data, char *name)
 	return (close (fd), 0);
 }
 
-void	parsing(t_data *data, int ac, char **av)
+int	parsing(t_data *data, int ac, char **av)
 {
 	data->map = NULL;
-	int i = 0;
-	if (ac == 2 && check_name(data, av[1]) == 0 && red(data) == 0)
-	{
-		printf("Map name is : %s\n", data->mapname);
-		printf("Map NO is : %s \n", data->no);
-		printf("Map SO is : %s\n", data->so);
-		printf("Map WE is : %s\n", data->we);
-		printf("Map EA is : %s\n", data->ea);
-		printf("Map Floor is : %d\n", data->f);
-		printf("Map Cieal is : %d\n", data->c);
-		printf("My Map :\n");
-		while (data->map[i] != NULL)
-			printf("%s\n", data->map[i++]);
-	}
-	else
-		printf("Parsing Error!");
-}
-
-int	main(int ac, char **av)
-{
-	t_data		*data;
-
-	data = malloc(sizeof(t_data));
 	data->no = NULL;
 	data->so = NULL;
 	data->we = NULL;
 	data->ea = NULL;
 	data->c = -1;
 	data->f = -1;
-	parsing(data, ac, av);
-
+	if (ac == 2 && check_name(data, av[1]) == 0 && red(data) == 0)
+		return (1);
+	else
+		return (printf("Parsing Error!"), -1);
 }

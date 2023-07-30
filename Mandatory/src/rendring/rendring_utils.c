@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:13:53 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/25 12:49:17 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/30 07:44:40 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ void	draw_line(t_data *data, t_point a, t_point b)
 	}
 }
 
-int get_color(int x, int y)
+int	get_color(t_data *data, int x, int y)
 {
-	int tx;
-	int ty;
+	int	tx;
+	int	ty;
 
-	if (x < 0 || x > WIN_WIDTH  || y < 0 || y > WIN_HEIGHT)
+	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
 		return (0x009D9C);
 	tx = x / TILE_SIZE;
 	ty = y / TILE_SIZE;
-	if (map[ty][tx] == 1)
-	 	return (0xBABABA);
-	else 
+	if (data->map[ty][tx] == '1')
+		return (0xBABABA);
+	else
 		return (0x000000);	 
 }

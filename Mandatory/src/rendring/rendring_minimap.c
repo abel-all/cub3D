@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_minimap.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:10:43 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/25 13:32:24 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/07/30 07:42:20 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	rendring_map(t_data *data, int x, int y)
 		{
 			dis =  sqrt(pow((MINI_WIDTH / 2) - data->i, 2) + pow((MINI_WIDTH / 2) - data->j, 2));
 			if (dis  < ((MINI_WIDTH / 2) - 8))
-				my_mlx_pixel_put(data->minimap, data->i, data->j, get_color(data->i + x, y + data->j));
+				my_mlx_pixel_put(data->minimap, data->i, data->j, get_color(data, data->i + x, y + data->j));
 			else if (dis >= ((MINI_WIDTH / 2) - 8) && dis < (MINI_WIDTH / 2) )
 				my_mlx_pixel_put(data->minimap, data->i, data->j, 0xaa4500);
 			else

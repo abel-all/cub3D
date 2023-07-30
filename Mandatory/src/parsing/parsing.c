@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/07/29 21:23:03 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/07/30 07:57:15 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,12 @@ int	much_players(t_data *data)
 		{
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'W'
 			|| data->map[i][j] == 'E' || data->map[i][j] == 'S')
+			{
+				data->p_p[0] = i;
+				data->p_p[1] = j;
+				data->p_r = data->map[i][j];
 				count++;
+			}
 			j++;
 		}
 		i++;
@@ -220,7 +225,7 @@ int	much_players(t_data *data)
 int	check_lines(t_data *data)
 {
 	int	size;
-	int i;
+	int	i;
 	int	j;
 	int	reut;
 

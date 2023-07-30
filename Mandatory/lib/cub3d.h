@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/29 21:38:33 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/07/30 07:54:21 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,23 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 
-
-
-#define	TILE_SIZE 20
-#define	MAP_NUM_ROWS 10
-#define	MAP_NUM_COLS 14
-#define	WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE)
-#define	WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
-#define	WIN_WIDTH1 1920
-#define	WIN_HEIGHT1 1080
-#define	MINI_WIDTH 200
-#define	FOV_ANGLE (60 * (M_PI / 180))
-#define	WALL_STRIP_WIDTH 1
-#define	NUM_OF_RAYS (WIN_WIDTH1 / WALL_STRIP_WIDTH)
-#define	SCALE_FACTOR 0.5
-
-#define	MALLOC_ERR "Malloc error!\n"
-#define	INIT_ERR "Mlx init error!\n"
-#define	NEW_WIN_ERR "Mlx new window error!\n"
+# define TILE_SIZE 20
+# define MAP_NUM_ROWS 10
+# define MAP_NUM_COLS 14
+# define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE)
+# define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+# define WIN_WIDTH1 1920
+# define WIN_HEIGHT1 1080
+# define MINI_WIDTH 200
+# define FOV_ANGLE (60 * (M_PI / 180))
+# define WALL_STRIP_WIDTH 1
+# define NUM_OF_RAYS (WIN_WIDTH1 / WALL_STRIP_WIDTH)
+# define SCALE_FACTOR 0.5
+# define MALLOC_ERR "Malloc error!\n"
+# define INIT_ERR "Mlx init error!\n"
+# define NEW_WIN_ERR "Mlx new window error!\n"
 
 extern int map[MAP_NUM_ROWS][MAP_NUM_COLS];
-
 
 typedef struct s_point
 {
@@ -91,7 +87,7 @@ typedef struct s_player
 	double	rotationspeed; // 3 * (PI / 180) -> so 3 degree per frame
 } t_player;
 
-typedef struct	s_img {
+typedef	struct s_img {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -107,6 +103,8 @@ typedef struct s_data
 	double		wall_height;
 	char		**map;
 	char		*mapname;
+	char		p_r;
+	int			p_p[2];
 	char		*no;
 	char		*so;
 	char		*we;
@@ -138,12 +136,12 @@ typedef struct s_data
 	double		pixelx;
 	double		pixely;
 	double		disprojplane;
-    double		wallstripheight;
-    int			x;
-    int			y;
-    double		wall_top;
-    double		wall_bottom;
-    int			color_intensity;
+	double		wallstripheight;
+	int			x;
+	int			y;
+	double		wall_top;
+	double		wall_bottom;
+	int			color_intensity;
 	int			color;
 }				t_data;
 
@@ -164,7 +162,6 @@ void	create_img(t_data *data, t_img *img, int flag, int i);
 void	destroy_and_create_img(t_data *data);
 void	generate_new_player_corr(t_data *data, double *new_px, double *new_py);
 
-
 /*INIT DATA*/
 void	init_player(t_data *data);
 void	init_window(t_data *data);
@@ -176,11 +173,11 @@ void	init_ray(t_ray *ray, double rayangle);
 /*RENDRING*/
 void	rendring_minimap(t_data *data, int x, int y);
 void	draw_line(t_data *data, t_point a, t_point b);
-int		get_color(int x, int y);
+int		get_color(t_data *data, int x, int y);
 int		ft_rendring(void *param);
-void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
+void	rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
 int		create_rgb(int r, int g, int b);
-void    my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /**Pars*/
 int		parsing(t_data *data, int ac, char **av);
@@ -193,7 +190,5 @@ char	*ft_strchr(char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, unsigned int start, size_t len);
-
-
 
 #endif

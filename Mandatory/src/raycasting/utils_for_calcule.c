@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_for_calcule.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:03:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/30 07:40:15 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/05 16:57:50 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ int	check_if_wall(t_data *data, double x, double y)
 	int gridx;
 	int gridy;
 
-	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
-		return (1);
+	if (x < 0 || x > data->map_width || y < 0 || y > data->map_height)
+		return (-1);
 	gridx = x / TILE_SIZE;
 	gridy = y / TILE_SIZE;
 	if (data->map[gridy][gridx] == '0')

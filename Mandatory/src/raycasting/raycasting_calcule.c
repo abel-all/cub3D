@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_calcule.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:00:29 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/30 07:57:52 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/05 16:56:47 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	set_wallhit_corr(t_data *data, t_ray *ray, int f)
 
 void	increment_until_find_wall(t_data *data, t_ray *ray, int f)
 {
-	while (check_if_insidemap(data->nexttouchx, data->nexttouchy, WIN_WIDTH, WIN_HEIGHT) == 1)
+	while (check_if_insidemap(data->nexttouchx, data->nexttouchy, data->map_width, data->map_height) == 1)
 	{
 		data->xcheck = data->nexttouchx;
 		data->ycheck = data->nexttouchy;
@@ -44,7 +44,7 @@ void	increment_until_find_wall(t_data *data, t_ray *ray, int f)
 			if (ray->isup == 1)
 				data->ycheck--;
 		}
-    	if (check_if_wall(data, data->xcheck, data->ycheck))
+    	if (check_if_wall(data, data->xcheck, data->ycheck) == 1)
 		{
 			set_wallhit_corr(data, ray, f);
     	    break;

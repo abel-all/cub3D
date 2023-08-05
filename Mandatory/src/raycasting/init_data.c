@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:12:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/25 13:33:37 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/05 17:07:39 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,22 @@ void	init_window(t_data *data)
 	data->minimap = malloc(sizeof(t_img));
 	if (!data->minimap)
 		ft_error(MALLOC_ERR);
-    data->minimap->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-    data->minimap->addr = mlx_get_data_addr(data->minimap->img, \
-    &data->minimap->bits_per_pixel, &data->minimap->line_length, &data->minimap->endian);
+	create_img(data, data->minimap, 0, 1);
 	data->view = malloc(sizeof(t_img));
 	if (!data->view)
 		ft_error(MALLOC_ERR);
-    data->view->img = mlx_new_image(data->mlx, 1920, 1080);
-    data->view->addr = mlx_get_data_addr(data->view->img, \
-    &data->view->bits_per_pixel, &data->view->line_length, &data->view->endian);
+	create_img(data, data->view, 0, 2);
 }
 
 void	init_player(t_data *data)
 {
-	data->player->x = ((MAP_NUM_COLS * TILE_SIZE) / 2);
-	data->player->y = ((MAP_NUM_ROWS * TILE_SIZE) / 2);
-	data->player->height = 2;
-	data->player->width = 2;
+	data->player->x = (data->p_p[0] * TILE_SIZE) + (TILE_SIZE / 2);
+	data->player->y = (data->p_p[1] * TILE_SIZE) + (TILE_SIZE / 2);
+	data->player->height = 4;
 	data->player->turndirection = 0;
 	data->player->walkdirection = 0;
+	data->player->left_right = 0;
 	data->player->rotationangle = M_PI / 2;
 	data->player->rotationspeed = 3 * (M_PI / 180);
-	data->player->movespeed = 3;
-	data->ray = malloc(sizeof(t_ray) * NUM_OF_RAYS);
+	data->player->movespeed = 2;
 }

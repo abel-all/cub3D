@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/07/30 07:57:15 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/05 16:54:43 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,8 @@ void	put_spaces(t_data *data)
 		map[j] = '\0';
 		data->map[i++] = ft_strdup(map);
 	}
+	data->map_width = TILE_SIZE * (data->l_line - 1);
+	data->map_height = TILE_SIZE * i;
 }
 
 int	much_players(t_data *data)
@@ -211,8 +213,8 @@ int	much_players(t_data *data)
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'W'
 			|| data->map[i][j] == 'E' || data->map[i][j] == 'S')
 			{
-				data->p_p[0] = i;
-				data->p_p[1] = j;
+				data->p_p[0] = j;
+				data->p_p[1] = i;
 				data->p_r = data->map[i][j];
 				count++;
 			}
@@ -222,6 +224,7 @@ int	much_players(t_data *data)
 	}
 	return (count);
 }
+
 int	check_lines(t_data *data)
 {
 	int	size;

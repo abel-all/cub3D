@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:13:53 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/30 07:44:40 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/05 17:16:06 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	get_color(t_data *data, int x, int y)
 	int	tx;
 	int	ty;
 
-	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
+	if (x < 0 || x > data->map_width || y < 0 || y > data->map_height)
 		return (0x009D9C);
 	tx = x / TILE_SIZE;
 	ty = y / TILE_SIZE;
-	if (data->map[ty][tx] == '1')
-		return (0xBABABA);
-	else
-		return (0x000000);	 
+	// if (data->map[ty][tx] == '1')
+	// 	return (0xBABABA);
+	// else
+		return (0x000000);
 }

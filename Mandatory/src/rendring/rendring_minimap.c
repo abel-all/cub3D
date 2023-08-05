@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_minimap.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:10:43 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/30 07:42:20 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/04 15:57:36 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	rendring_player_and_his_dir(t_data *data, int x, int y)
     t_point a;
     t_point b;
 
-	x = (MINI_WIDTH / 2) - (data->player->width / 2);
+	x = (MINI_WIDTH / 2) - (data->player->height / 2);
 	y = (MINI_WIDTH / 2) - (data->player->height / 2);
 	data->i = -1;
-    while (++data->i < data->player->width )
+    while (++data->i < data->player->height)
 	{
 		data->j = 1;
         while (++data->j < data->player->height )

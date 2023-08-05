@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/25 13:29:23 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:53:53 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    rendring_walls(t_data *data, int stripid)
     {
         data->y = -1;
         while (++data->y < data->wall_top)
-            my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, create_rgb(0, 128, 255));
+            my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, data->c);
         data->y =  data->wall_top - 1;
         while (++data->y < data->wall_bottom)
         {
@@ -29,7 +29,7 @@ void    rendring_walls(t_data *data, int stripid)
         }
         data->y = data->wall_bottom - 1;
         while (++data->y < WIN_HEIGHT1)
-            my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, create_rgb(0, 102, 0));
+            my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, data->f);
     }
 }
 
@@ -51,23 +51,6 @@ void    rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
     else
         data->color_intensity = 100;
     rendring_walls(data, stripid);
-    // data->x = -1;
-    // while (++data->x < WALL_STRIP_WIDTH)
-    // {
-    //     data->y = -1;
-    //     while (++data->y < data->wall_top)
-    //         my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, create_rgb(0, 128, 255));
-    //     data->y =  data->wall_top - 1;
-    //     while (++data->y < data->wall_bottom)
-    //     {
-    //         data->color = create_rgb(data->color_intensity, data->color_intensity, data->color_intensity);
-    //         if (check_if_insidemap(data->x + (stripid * WALL_STRIP_WIDTH), data->y, WIN_WIDTH1, WIN_HEIGHT1))
-    //             my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, data->color);
-    //     }
-    //     data->y = data->wall_bottom - 1;
-    //     while (++data->y < WIN_HEIGHT1)
-    //         my_mlx_pixel_put(data->view, data->x + (stripid * WALL_STRIP_WIDTH), data->y, create_rgb(0, 102, 0));
-    // }
 }
 
 int	ft_rendring(void *param)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/30 07:54:21 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/05 16:59:35 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 
-# define TILE_SIZE 20
-# define MAP_NUM_ROWS 10
-# define MAP_NUM_COLS 14
-# define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE)
-# define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+# define TILE_SIZE 10
+// # define MAP_NUM_ROWS 10
+// # define MAP_NUM_COLS 14
+// # define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE)
+// # define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 # define WIN_WIDTH1 1920
 # define WIN_HEIGHT1 1080
 # define MINI_WIDTH 200
@@ -45,7 +45,7 @@
 # define INIT_ERR "Mlx init error!\n"
 # define NEW_WIN_ERR "Mlx new window error!\n"
 
-extern int map[MAP_NUM_ROWS][MAP_NUM_COLS];
+// extern int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
 typedef struct s_point
 {
@@ -77,7 +77,6 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	width;
 	double	height;
 	int		left_right;
 	int		turndirection; // =0 / -1 for left, +1 for right
@@ -101,6 +100,8 @@ typedef struct s_data
 	void		*mlx_win;
 	double		wall_width;
 	double		wall_height;
+	int			map_width;
+	int			map_height;
 	char		**map;
 	char		*mapname;
 	char		p_r;
@@ -116,7 +117,7 @@ typedef struct s_data
 	t_img		*minimap;
 	t_img		*view;
 	t_point		*point;
-	t_ray		*ray;
+	t_ray		ray[NUM_OF_RAYS];
 	double		xintersept;
 	double		yintersept;
 	double		xstep;

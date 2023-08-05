@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/07/30 07:47:04 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/05 17:18:32 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ int	main(int ac, char **av)
 		ft_error("Parsing!");
 	init_window(data);// is setup part
 	init_player(data);// is setup part for player
+	for (int i = 0; i < data->map_width; i++)
+		// for (int j = 0; j < data->map_height; j++)
+			printf("%s\n", data->map[i]);
 	update(data);
 	ft_rendring(data);
 	mlx_hook(data->mlx_win, 2, 0, keypressed, data);
 	mlx_hook(data->mlx_win, 17, 0, exit_status, NULL);
 	mlx_loop_hook(data->mlx, ft_rendring, data);
-	mlx_loop(data->mlx);
+	// mlx_loop(data->mlx);
 }
+

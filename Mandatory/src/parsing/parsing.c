@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/07/30 07:57:15 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/05 15:44:49 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	**putmap(t_data *data, char *line)
 	new = NULL;
 	if (data->map == NULL)
 	{
-		new = malloc(sizeof(char *) + 1);
+		new = malloc(sizeof(char *) * 2);
 		new[0] = rm_lin(line);
 		new[1] = NULL;
 	}
@@ -179,7 +179,7 @@ void	put_spaces(t_data *data)
 	char	*map;
 
 	i = 0;
-	map = malloc(sizeof(char) * data->l_line);
+	map = malloc(sizeof(char) * (data->l_line + 1));
 	while (data->map[i])
 	{
 		j = 0;
@@ -211,8 +211,8 @@ int	much_players(t_data *data)
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'W'
 			|| data->map[i][j] == 'E' || data->map[i][j] == 'S')
 			{
-				data->p_p[0] = i;
-				data->p_p[1] = j;
+				data->p_p[0] = j;
+				data->p_p[1] = i;
 				data->p_r = data->map[i][j];
 				count++;
 			}
@@ -265,6 +265,7 @@ int	to_ints(char	**str)
 	i = (ft_atoi(str[0]) << 16) | (ft_atoi(str[1]) << 8) | ft_atoi(str[2]);
 	return (i);
 }
+
 int	check_arg(t_data *data, char	**str)
 {
 	if (ft_strcmp(str[0], "NO") == 0 || ft_strcmp(str[0], "SO") == 0

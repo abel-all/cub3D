@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/05 16:54:43 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:56:07 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	**putmap(t_data *data, char *line)
 	new = NULL;
 	if (data->map == NULL)
 	{
-		new = malloc(sizeof(char *) + 1);
+		new = malloc(sizeof(char *) * 2);
 		new[0] = rm_lin(line);
 		new[1] = NULL;
 	}
@@ -139,7 +139,9 @@ char	**putmap(t_data *data, char *line)
 
 int	allowed(char c, int i)
 {
-	if (i == -1 && (c == '0' || c == '1'
+	if (i == -2 && (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W'))
+		return (2);
+	else if (i == -1 && (c == '0' || c == '1'
 		|| c == ' ' || c == 'N' || c == 'S' || c == 'E' || c == 'W'))
 		return (1);
 	else if (i == 0 && (c == '1' || c == ' '))
@@ -179,7 +181,7 @@ void	put_spaces(t_data *data)
 	char	*map;
 
 	i = 0;
-	map = malloc(sizeof(char) * data->l_line);
+	map = malloc(sizeof(char) * (data->l_line + 1));
 	while (data->map[i])
 	{
 		j = 0;
@@ -268,6 +270,7 @@ int	to_ints(char	**str)
 	i = (ft_atoi(str[0]) << 16) | (ft_atoi(str[1]) << 8) | ft_atoi(str[2]);
 	return (i);
 }
+
 int	check_arg(t_data *data, char	**str)
 {
 	if (ft_strcmp(str[0], "NO") == 0 || ft_strcmp(str[0], "SO") == 0

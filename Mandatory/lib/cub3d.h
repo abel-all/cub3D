@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/05 16:59:35 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:59:33 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 
-# define TILE_SIZE 10
-// # define MAP_NUM_ROWS 10
-// # define MAP_NUM_COLS 14
-// # define WIN_WIDTH (MAP_NUM_COLS * TILE_SIZE)
-// # define WIN_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+# define TILE_SIZE 20
 # define WIN_WIDTH1 1920
 # define WIN_HEIGHT1 1080
 # define MINI_WIDTH 200
@@ -44,8 +40,6 @@
 # define MALLOC_ERR "Malloc error!\n"
 # define INIT_ERR "Mlx init error!\n"
 # define NEW_WIN_ERR "Mlx new window error!\n"
-
-// extern int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
 typedef struct s_point
 {
@@ -191,5 +185,6 @@ char	*ft_strchr(char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, unsigned int start, size_t len);
+int	allowed(char c, int i);
 
 #endif

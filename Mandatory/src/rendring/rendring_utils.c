@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:13:53 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/05 17:16:06 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:56:34 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,14 @@ int	get_color(t_data *data, int x, int y)
 		return (0x009D9C);
 	tx = x / TILE_SIZE;
 	ty = y / TILE_SIZE;
-	// if (data->map[ty][tx] == '1')
-	// 	return (0xBABABA);
-	// else
-		return (0x000000);
+	if (data->map[ty] && data->map[ty][tx])
+	{
+		if (data->map[ty][tx] == '1')
+			return (0xBABABA);
+		else if (data->map[ty][tx] == ' ')
+			return (0x009D9C);
+		else if (allowed(data->map[ty][tx], -2) == 2)
+			return (0x000000);
+	}
+	return (0x009D9C);
 }

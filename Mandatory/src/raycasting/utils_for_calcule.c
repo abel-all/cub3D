@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:03:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/05 16:57:50 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:56:10 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,11 @@ int	check_if_wall(t_data *data, double x, double y)
 		return (-1);
 	gridx = x / TILE_SIZE;
 	gridy = y / TILE_SIZE;
-	if (data->map[gridy][gridx] == '0')
+	if (data->map[gridy] && data->map[gridy][gridx])
+	{
+		
+	if (allowed(data->map[gridy][gridx], -2) == 2)
 		return (0);
+	}
 	return (1);
 }

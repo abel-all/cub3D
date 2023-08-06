@@ -6,54 +6,59 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:10:43 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/04 15:57:36 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/06 15:10:13 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 
+static int	check_bord(double i, double j)
+{
+	if (i > BORD_HEIGHT && i < (MINI_WIDTH - BORD_HEIGHT) && \
+	j > BORD_HEIGHT && j < (MINI_WIDTH - BORD_HEIGHT))
+		return (0);
+	return (1);
+}
+
 void	rendring_map(t_data *data, int x, int y)
 {
-	double dis;
-
-	x = data->player->x - (MINI_WIDTH / 2);
-	y = data->player->y - (MINI_WIDTH / 2);
+	x = data->player.x - (MINI_WIDTH / 2);
+	y = data->player.y - (MINI_WIDTH / 2);
 	data->i = -1;
 	while (++data->i < MINI_WIDTH)
 	{
 		data->j = -1;
 		while (++data->j < MINI_WIDTH)
 		{
-			dis =  sqrt(pow((MINI_WIDTH / 2) - data->i, 2) + pow((MINI_WIDTH / 2) - data->j, 2));
-			if (dis  < ((MINI_WIDTH / 2) - 8))
-				my_mlx_pixel_put(data->minimap, data->i, data->j, get_color(data, data->i + x, y + data->j));
-			else if (dis >= ((MINI_WIDTH / 2) - 8) && dis < (MINI_WIDTH / 2) )
-				my_mlx_pixel_put(data->minimap, data->i, data->j, 0xaa4500);
+			if (!check_bord(data->i, data->j))
+				my_mlx_pixel_put(&data->minimap, data->i, data->j, \
+				get_color(data, data->i + x, y + data->j));
 			else
-				my_mlx_pixel_put(data->minimap, data->i, data->j, 0xff000000);
+				my_mlx_pixel_put(&data->minimap, data->i, data->j, 0x3F3047);
 		}
 	}
 }
 
 void	rendring_player_and_his_dir(t_data *data, int x, int y)
 {
-    t_point a;
-    t_point b;
+	t_point	a;
+	t_point	b;
 
-	x = (MINI_WIDTH / 2) - (data->player->height / 2);
-	y = (MINI_WIDTH / 2) - (data->player->height / 2);
+	x = (MINI_WIDTH / 2) - (data->player.height / 2);
+	y = (MINI_WIDTH / 2) - (data->player.height / 2);
 	data->i = -1;
-    while (++data->i < data->player->height)
+	while (++data->i < data->player.height)
 	{
-		data->j = 1;
-        while (++data->j < data->player->height )
-            my_mlx_pixel_put(data->minimap, x + data->i, y + data->j, 0xFF0000);
+		data->j = -1;
+		while (++data->j < data->player.height)
+			my_mlx_pixel_put(&data->minimap, x + data->i, y + data->j, \
+			0xFF0000);
 	}
-    a.x = (MINI_WIDTH / 2);
-    a.y = (MINI_WIDTH / 2);
-    b.x = (MINI_WIDTH / 2) + cos(data->player->rotationangle) * 10;
-    b.y = (MINI_WIDTH / 2) + sin(data->player->rotationangle) * 10;
-    draw_line(data, a, b);
+	a.x = (MINI_WIDTH / 2);
+	a.y = (MINI_WIDTH / 2);
+	b.x = (MINI_WIDTH / 2) + cos(data->player.rotationangle) * LINE_LENGTH;
+	b.y = (MINI_WIDTH / 2) + sin(data->player.rotationangle) * LINE_LENGTH;
+	draw_line(data, a, b);
 }
 
 void	rendring_minimap(t_data *data, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:12:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/05 17:07:39 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/06 12:57:29 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,33 @@ void	init_window(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		ft_error(INIT_ERR);
-	data->mlx_win = mlx_new_window(data->mlx, 1920, 1080, "cub3D");
+	data->mlx_win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
 	if (!data->mlx_win)
 		ft_error(NEW_WIN_ERR);
-	data->player = malloc(sizeof(t_player));
-	if (!data->player)
-		ft_error(MALLOC_ERR);
-	data->minimap = malloc(sizeof(t_img));
-	if (!data->minimap)
-		ft_error(MALLOC_ERR);
-	create_img(data, data->minimap, 0, 1);
-	data->view = malloc(sizeof(t_img));
-	if (!data->view)
-		ft_error(MALLOC_ERR);
-	create_img(data, data->view, 0, 2);
+	create_img(data, &data->minimap, 0, 1);
+	create_img(data, &data->view, 0, 2);
+}
+
+double	get_rot_angle(t_data *data)
+{
+	if (data->p_r == 'S')
+		return (M_PI / 2);
+	if (data->p_r == 'W')
+		return (M_PI);
+	if (data->p_r == 'N')
+		return ((3 * M_PI) / 2);
+	return (0);
 }
 
 void	init_player(t_data *data)
 {
-	data->player->x = (data->p_p[0] * TILE_SIZE) + (TILE_SIZE / 2);
-	data->player->y = (data->p_p[1] * TILE_SIZE) + (TILE_SIZE / 2);
-	data->player->height = 4;
-	data->player->turndirection = 0;
-	data->player->walkdirection = 0;
-	data->player->left_right = 0;
-	data->player->rotationangle = M_PI / 2;
-	data->player->rotationspeed = 3 * (M_PI / 180);
-	data->player->movespeed = 2;
+	data->player.x = (data->p_p[0] * TILE_SIZE) + (TILE_SIZE / 2);
+	data->player.y = (data->p_p[1] * TILE_SIZE) + (TILE_SIZE / 2);
+	data->player.height = PLAYER_HEIGHT;
+	data->player.turndirection = 0;
+	data->player.walkdirection = 0;
+	data->player.left_right = 0;
+	data->player.rotationangle = get_rot_angle(data);
+	data->player.rotationspeed = 2 * (M_PI / 180);
+	data->player.movespeed = 2;
 }

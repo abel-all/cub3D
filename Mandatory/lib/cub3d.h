@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/05 18:59:33 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:39:43 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,20 @@
 # define KEY_RIGHT 124
 
 # define TILE_SIZE 20
-# define WIN_WIDTH1 1920
-# define WIN_HEIGHT1 1080
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 # define MINI_WIDTH 200
-# define FOV_ANGLE (60 * (M_PI / 180))
+# define LINE_LENGTH 10
+# define PLAYER_HEIGHT 4
+# define BORD_HEIGHT 8
+# define FOV_ANGLE 1.0471975512
 # define WALL_STRIP_WIDTH 1
-# define NUM_OF_RAYS (WIN_WIDTH1 / WALL_STRIP_WIDTH)
+# define NUM_OF_RAYS WIN_WIDTH
 # define SCALE_FACTOR 0.5
-# define MALLOC_ERR "Malloc error!\n"
-# define INIT_ERR "Mlx init error!\n"
-# define NEW_WIN_ERR "Mlx new window error!\n"
+# define MALLOC_ERR "Malloc Error!\n"
+# define PARS_ERR "Parsing Error!\n"
+# define INIT_ERR "Mlx Init Error!\n"
+# define NEW_WIN_ERR "Mlx New Window Error!\n"
 
 typedef struct s_point
 {
@@ -73,14 +77,15 @@ typedef struct s_player
 	double	y;
 	double	height;
 	int		left_right;
-	int		turndirection; // =0 / -1 for left, +1 for right
-	int		walkdirection; // =0 / -1 for back, +1 for front
-	double	rotationangle; // PI / 2
-	double	movespeed; // 3.0
-	double	rotationspeed; // 3 * (PI / 180) -> so 3 degree per frame
-} t_player;
+	int		turndirection;
+	int		walkdirection;
+	double	rotationangle;
+	double	movespeed;
+	double	rotationspeed;
+}				t_player;
 
-typedef	struct s_img {
+typedef struct s_img
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -94,8 +99,8 @@ typedef struct s_data
 	void		*mlx_win;
 	double		wall_width;
 	double		wall_height;
-	int			map_width;
-	int			map_height;
+	double		map_width;
+	double		map_height;
 	char		**map;
 	char		*mapname;
 	char		p_r;
@@ -107,33 +112,25 @@ typedef struct s_data
 	int			c;
 	int			f;
 	int			l_line;
-	t_player	*player;
-	t_img		*minimap;
-	t_img		*view;
-	t_point		*point;
+	t_player	player;
+	t_img		minimap;
+	t_img		view;
 	t_ray		ray[NUM_OF_RAYS];
-	double		xintersept;
-	double		yintersept;
-	double		xstep;
-	double		ystep;
-	double		nexttouchx;
-	double		nexttouchy;
-	double		xcheck;
-	double		ycheck;
+	t_point		intersept;
+	t_point		step;
+	t_point		nexttouch;
+	t_point		check;
+	t_point		delta;
 	int			foundhorzwallhit;
 	int			foundvertwallhit;
 	double		horzhitdis;
 	double		verthitdis;
-	int			i;
-	int			j;
-	double		deltax;
-	double		deltay;
-	double		pixelx;
-	double		pixely;
+	double		i;
+	double		j;
 	double		disprojplane;
 	double		wallstripheight;
-	int			x;
-	int			y;
+	double		x;
+	double		y;
 	double		wall_top;
 	double		wall_bottom;
 	int			color_intensity;
@@ -141,7 +138,7 @@ typedef struct s_data
 }				t_data;
 
 /*RAYCASTING*/
-int		keypressed(int key_code, void	*param);
+int		keypressed(int key_code, void *param);
 void	update(t_data *data);
 int		check_if_wall(t_data *data, double x, double y);
 
@@ -156,14 +153,19 @@ int		check_if_insidemap(double x, double y, int winwidth, int winheight);
 void	create_img(t_data *data, t_img *img, int flag, int i);
 void	destroy_and_create_img(t_data *data);
 void	generate_new_player_corr(t_data *data, double *new_px, double *new_py);
+void	calc_vertintersection(t_data *data, t_ray *ray);
+void	calc_horzintersection(t_data *data, t_ray *ray);
+void	increment_until_find_wall(t_data *data, t_ray *ray, int f);
+void	set_wallhit_corr(t_data *data, t_ray *ray, int f);
 
 /*INIT DATA*/
 void	init_player(t_data *data);
 void	init_window(t_data *data);
 int		ft_strlen(char *s);
 int		ft_error(char *err);
-int		exit_status(int key_code, void	*param);
+int		exit_status(int key_code, void *param);
 void	init_ray(t_ray *ray, double rayangle);
+double	get_rot_angle(t_data *data);
 
 /*RENDRING*/
 void	rendring_minimap(t_data *data, int x, int y);
@@ -174,7 +176,7 @@ void	rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid);
 int		create_rgb(int r, int g, int b);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
-/**Pars*/
+/**Parsing*/
 int		parsing(t_data *data, int ac, char **av);
 int		ft_atoi(char *str);
 char	**ft_split(char *s, char c);
@@ -185,6 +187,23 @@ char	*ft_strchr(char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, unsigned int start, size_t len);
-int	allowed(char c, int i);
+int		allowed(char c, int i);
+char	*rm_lin(char *s);
+int		empty_line(char	*c);
+int		red(t_data *data);
+int		check_name(t_data *data, char *name);
+int		parsing(t_data *data, int ac, char **av);
+int		much_players(t_data *data);
+int		check_lines(t_data *data);
+int		to_ints(char	**str);
+int		check_arg(t_data *data, char	**str);
+char	**putmap(t_data *data, char *line);
+int		check_zeros(t_data *data);
+void	put_spaces(t_data *data);
+int		to_end(char *s);
+char	*viral(char *tmp, int *i);
+char	*ptr(char *s);
+int		sp_size(char **str);
+int		to_int(char *s);
 
 #endif

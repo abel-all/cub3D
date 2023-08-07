@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 00:22:45 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 15:21:13 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	red_textures(t_data *data)
 {
-	system("pwd");
-	printf("|%s|", data->ea);
 	data->addr_no.img_ptr = mlx_xpm_file_to_image(data->mlx, data->no,
 			&data->addr_no.width, &data->addr_no.height);
 	data->addr_we.img_ptr = mlx_xpm_file_to_image(data->mlx, data->we,

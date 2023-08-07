@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 16:39:43 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 01:00:33 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,27 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
+typedef struct pos_text
+{
+	int	x1;
+	int	x2;
+	int	y1;
+	int	y2;
+}		t_pos;
+
+typedef struct addr
+{
+	void			*mlx_ptr;
+	void			*win_ptr;
+	void			*img_ptr;
+	unsigned int	*data_addr;
+	int				bits_per_pixel;
+	int				size_line;
+	int				endian;
+	int				width;
+	int				height;
+}					t_addr;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -135,6 +156,11 @@ typedef struct s_data
 	double		wall_bottom;
 	int			color_intensity;
 	int			color;
+	t_addr		addr_no;
+	t_addr		addr_we;
+	t_addr		addr_ea;
+	t_addr		addr_so;
+	t_pos		pos;
 }				t_data;
 
 /*RAYCASTING*/
@@ -205,5 +231,5 @@ char	*viral(char *tmp, int *i);
 char	*ptr(char *s);
 int		sp_size(char **str);
 int		to_int(char *s);
-
+unsigned	int my_mlx_pixel_get(t_addr img, int x, int y);
 #endif

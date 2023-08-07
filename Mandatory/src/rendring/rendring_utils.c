@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:13:53 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 15:11:19 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 01:01:03 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 	dst = img->addr + (y * img->line_length + (x * (img->bits_per_pixel / 8)));
 	*(unsigned int *)dst = color;
+}
+
+unsigned int	my_mlx_pixel_get(t_addr img, int x, int y)
+{
+	unsigned int	*dst;
+
+	//printf("%d %d\n", x, y);
+	dst = img.data_addr + (y * (img.size_line / 4) + x);
+	return (*dst);
 }
 
 int	create_rgb(int r, int g, int b)

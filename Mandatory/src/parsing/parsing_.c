@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:23:22 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 15:39:01 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 00:20:50 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ int	check_arg(t_data *data, char	**str)
 		|| ft_strcmp(str[0], "F") == 0 || ft_strcmp(str[0], "C") == 0)
 	{
 		if (ft_strcmp(str[0], "NO") == 0 && data->no == NULL)
-			data->no = ft_strdup(str[1]);
+			data->no = rm_lin(ft_strdup(str[1]));
 		else if (ft_strcmp(str[0], "SO") == 0 && data->so == NULL)
-			data->so = ft_strdup(str[1]);
+			data->so = rm_lin(ft_strdup(str[1]));
 		else if (ft_strcmp(str[0], "WE") == 0 && data->we == NULL)
-			data->we = ft_strdup(str[1]);
+			data->we = rm_lin(ft_strdup(str[1]));
 		else if (ft_strcmp(str[0], "EA") == 0 && data->ea == NULL)
-			data->ea = ft_strdup(str[1]);
+			data->ea = rm_lin(ft_strdup(str[1]));
 		else if (ft_strcmp(str[0], "F") == 0 && data->f == -1
 			&& to_ints(ft_split(str[1], ',')) != -1)
 			data->f = to_ints(ft_split(str[1], ','));

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+         #
+#    By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/08/06 16:47:48 by abel-all         ###   ########.fr        #
+#    Updated: 2023/08/07 00:45:34 by ychahbi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 	cub3D
 
-CFLAGS	=	#-Wall -Wextra -Werror
+CFLAGS	=	#-fsanitize=address #-Wall -Wextra -Werror
 
 HEADERS	= 	Mandatory/lib/cub3d.h Mandatory/lib/get_next_line.h
 

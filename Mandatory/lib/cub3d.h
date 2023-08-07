@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 17:20:56 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 20:27:02 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void			init_player(t_data *data);
 void			init_window(t_data *data);
 int				ft_strlen(char *s);
 int				ft_error(char *err);
-int				exit_status(int key_code, void *param);
+int				exit_status(void);
 void			init_ray(t_ray *ray, double rayangle);
 double			get_rot_angle(t_data *data);
 
@@ -215,7 +215,7 @@ char			*get_next_line(int fd);
 char			*ft_strchr(char *s, int c);
 void			*ft_calloc(size_t count, size_t size);
 char			*ft_strjoin(char *s1, char *s2);
-char			*ft_substr(char *s, unsigned int start, size_t len);
+char			*ft_substr(char *s, int start, int len);
 int				allowed(char c, int i);
 char			*rm_lin(char *s);
 int				empty_line(char	*c);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:58:23 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 12:58:50 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 20:23:19 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 
-int	exit_status(int key_code, void	*param)
+int	exit_status(void)
 {
 	exit(EXIT_SUCCESS);
 }

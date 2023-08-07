@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing___.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:25:59 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 15:26:09 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 20:24:57 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ptr(char *s)
 	char	*ptr;
 	int		i;
 
+	len = 0;
 	ptr = malloc((sizeof(char) * len) + 1);
 	i = -1;
 	len = ft_strlen(s);

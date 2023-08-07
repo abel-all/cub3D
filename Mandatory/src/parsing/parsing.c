@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/07 17:20:15 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 20:24:33 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,15 @@ int	red(t_data *data)
 
 int	check_name(t_data *data, char *name)
 {
-	int	fd;
 	int	len;
 
 	len = ft_strlen(name);
 	if (ft_strcmp(*(&name) + (len - ft_strlen(".cub")), ".cub"))
 		return (printf("Map name Error -> "), -1);
 	if (open (name, O_RDONLY, 0666) == -1)
-		return (close (fd), printf("can't open file -> "), -1);
+		return (printf("can't open file -> "), -1);
 	data->mapname = name;
-	return (close (fd), 0);
+	return (0);
 }
 
 int	parsing(t_data *data, int ac, char **av)

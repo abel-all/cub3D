@@ -73,9 +73,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (ptr);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, int start, int len)
 {
-	size_t	dee;
+	int		dee;
 	char	*ptr;
 
 	if (!s)

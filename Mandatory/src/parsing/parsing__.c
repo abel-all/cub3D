@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:24:47 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 17:11:35 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 20:19:38 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	check_zeros(t_data *data)
 			{
 				if (data->map[i + 1][j] == ' ' || data->map[i - 1][j] == ' '
 					|| data->map[i][j + 1] == ' ' || data->map[i][j - 1] == ' ')
-					return (printf("%d %d Ok Error\n", i, j), 0);
+					return (printf("%d %d Error\n", i, j), ft_error(""), 0);
 			}
 			j++;
 		}

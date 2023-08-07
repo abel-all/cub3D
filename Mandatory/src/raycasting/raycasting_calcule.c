@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_calcule.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:00:29 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 14:27:50 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 20:22:40 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	calc_horz_vert_hitdis(t_data *data, t_ray *ray)
 		data->verthitdis = INT_MAX;
 }
 
-void	cast_ray(t_data *data, t_ray *ray, double rayangle, int stripid)
+void	cast_ray(t_data *data, t_ray *ray, double rayangle)
 {
 	init_ray(ray, rayangle);
 	calc_horzintersection(data, ray);
@@ -65,7 +65,7 @@ void	castallrays(t_data *data, int i)
 	rayangle = data->player.rotationangle - (FOV_ANGLE / 2);
 	while (++i < NUM_OF_RAYS)
 	{
-		cast_ray(data, &data->ray[i], rayangle, i);
+		cast_ray(data, &data->ray[i], rayangle);
 		rayangle += rayangle_incr;
 	}
 }

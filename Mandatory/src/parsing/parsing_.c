@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:23:22 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 00:20:50 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 20:21:13 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,24 @@ int	check_lines(t_data *data)
 	int	reut;
 
 	size = sp_size(data->map);
+	reut = 1;
 	i = 0;
 	put_spaces(data);
 	while (data->map[i])
 	{
 		j = 0;
 		if (i == 0 || i == size - 1)
-			while (data->map[i] && data->map[i][j] != '\0')
+			while (data->map[i] && data->map[i][j] != '\0' && reut)
 				reut = allowed(data->map[i][j++], i);
 		else
 			while (data->map[i] && data->map[i][j] != '\n'
-			&& data->map[i][j] != '\0')
+			&& data->map[i][j] != '\0' && reut)
 				reut = allowed(data->map[i][j++], -1);
-		if (reut == 0)
-			return (printf("%d %d Ok Error\n", i, j), 0);
+		(reut == 0) && (printf("%d %d Error\n", i, j), ft_error(""));
 		i++;
 	}
 	if (check_zeros(data) == 0 || much_players(data) != 1)
-		return (puts("Error!"), 0);
+		return (ft_error("Error!"), 0);
 	return (1);
 }
 
@@ -76,13 +76,13 @@ int	to_ints(char	**str)
 
 	i = -1;
 	if (sp_size(str) != 3)
-		return (puts("atoi"), -1);
+		return (ft_error("atoi"), -1);
 	if (ft_atoi(str[0]) < 0 || ft_atoi(str[0]) > 255)
-		return (puts("atoi"), -1);
+		return (ft_error("atoi"), -1);
 	if (ft_atoi(str[1]) < 0 || ft_atoi(str[1]) > 255)
-		return (puts("atoi"), -1);
+		return (ft_error("atoi"), -1);
 	if (ft_atoi(str[2]) < 0 || ft_atoi(str[2]) > 255)
-		return (puts("atoi"), -1);
+		return (ft_error("atoi"), -1);
 	i = (ft_atoi(str[0]) << 16) | (ft_atoi(str[1]) << 8) | ft_atoi(str[2]);
 	return (i);
 }
@@ -108,8 +108,8 @@ int	check_arg(t_data *data, char	**str)
 			&& to_ints(ft_split(str[1], ',')) != -1)
 			data->c = to_ints(ft_split(str[1], ','));
 		else
-			return (puts("args"), 0);
+			return (ft_error("args"), 0);
 		return (1);
 	}
-	return (puts("test"), 0);
+	return (ft_error("Some ARgs Not Valid"), 0);
 }

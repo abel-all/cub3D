@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 15:44:34 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 16:07:58 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void    rendring_walls(t_data *data, int stripid)
 		init_of_pos(stripid, data);
 		if (data->wallstripheight > 16000)
 			data->y = 0;
-		printf("%f %f %f %f\n", data->wall_bottom, data->wallstripheight, data->wall_height, data->wall_top);
 		while (++data->y < data->wall_bottom)
 		{
 			if (data->ray[stripid].washitvert == 0)

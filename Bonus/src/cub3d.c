@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 23:09:21 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 22:39:08 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ void	red_textures(t_data *data)
 			&data->addr_so.size_line, &data->addr_so.endian);
 }
 
+int	mouse_move(int x, int y, t_data *param)
+{
+	(void)y;
+	if (x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
+	{
+		if (x > param->mouse_x)
+			param->player.turndirection = 1;
+		else
+			param->player.turndirection = -1;
+		update(param);
+		param->mouse_x = x;
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
@@ -55,6 +70,7 @@ int	main(int ac, char **av)
 	ft_rendring(data);
 	mlx_hook(data->mlx_win, 2, 0, keypressed, data);
 	mlx_hook(data->mlx_win, 17, 0, exit_status, NULL);
+	mlx_hook(data->mlx_win, 6, 0, mouse_move, data);
 	mlx_loop_hook(data->mlx, ft_rendring, data);
 	mlx_loop(data->mlx);
 }

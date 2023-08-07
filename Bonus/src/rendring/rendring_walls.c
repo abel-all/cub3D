@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 23:16:55 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 23:17:16 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,12 @@ int	ft_rendring(void *param)
 	int		i;
 
 	data = (t_data *)param;
+	rendring_minimap(data, 0, 0);
 	i = -1;
 	while (++i < NUM_OF_RAYS)
 		rendring3dprojectionwalls(data, &data->ray[i], i);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->view.img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->minimap.img, \
+	20, 850);
 	return (1);
 }

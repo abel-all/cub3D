@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendring_minimap.c                                 :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 13:10:43 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 23:11:12 by ychahbi          ###   ########.fr       */
+/*   Created: 2023/02/24 15:13:09 by ychahbi           #+#    #+#             */
+/*   Updated: 2023/07/15 02:56:00 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 
-void	put_data_color(int stripid, t_addr *addr, t_data *data, int x)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int	y;
+	size_t	i;
 
-	y = (addr->height * (data->y - data->wall_top)
-			/ (data->wallstripheight));
-	data->color = my_mlx_pixel_get(*addr, x, y);
-	if (check_if_insidemap(data->x + (stripid * WALL_STRIP_WIDTH),
-			data->y, WIN_WIDTH, WIN_HEIGHT))
-	{
-		my_mlx_pixel_put(&data->view, data->x + (stripid * WALL_STRIP_WIDTH),
-			data->y, data->color);
-	}
+	i = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (-1);
+	while (s1[i] && s2[i] && ((unsigned char)s1[i]) == ((unsigned char)s2[i]))
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
-

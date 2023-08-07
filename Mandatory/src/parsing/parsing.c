@@ -3,29 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/06 15:32:04 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:20:15 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 #include "../../lib/get_next_line.h"
-
-char	*rm_lin(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '\n')
-			s[i] = '\0';
-		i++;
-	}
-	return (s);
-}
 
 int	empty_line(char	*c)
 {
@@ -41,6 +27,29 @@ int	empty_line(char	*c)
 	return (1);
 }
 
+void	while_short(t_data *data, int *i, int *j, char *tmp)
+{
+	if (*i <= 6)
+	{
+		if (sp_size(ft_split(tmp, 32)) == 2 && check_arg(data, \
+		ft_split(tmp, 32)))
+			(*i)++;
+		else if (empty_line(tmp))
+			;
+		else
+			ft_error("args - Error! - 0");
+	}
+	else
+	{
+		*j = 0;
+		while (tmp[*j] != '\0' && tmp[*j] != '\n')
+			if (!allowed(tmp[(*j)++], -1))
+				ft_error("Map parsing");
+		if (*j)
+			data->map = putmap(data, tmp);
+	}
+}
+
 int	red(t_data *data)
 {
 	int		fd;
@@ -53,25 +62,7 @@ int	red(t_data *data)
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
-		if (i <= 6)
-		{
-			if (sp_size(ft_split(tmp, 32)) == 2 && check_arg(data, \
-			ft_split(tmp, 32)))
-				i++;
-			else if (empty_line(tmp))
-				;
-			else
-				return (puts("args - Error! - 0"), -1);
-		}
-		else
-		{
-			j = 0;
-			while (tmp[j] != '\0' && tmp[j] != '\n')
-				if (!allowed(tmp[j++], -1))
-					return (puts("Map parsing"), -1);
-			if (j)
-				data->map = putmap(data, tmp);
-		}
+		while_short(data, &i, &j, tmp);
 		tmp = get_next_line(fd);
 	}
 	if (check_lines(data) != 1)

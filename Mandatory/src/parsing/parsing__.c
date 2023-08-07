@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parsing__.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:24:47 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 15:40:19 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:11:35 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 #include "../../lib/get_next_line.h"
+
+char	**malloc_oneline(char	**new, char	*line)
+{
+	new = malloc(sizeof(char *) * 2);
+	new[0] = rm_lin(line);
+	new[1] = NULL;
+	return (new);
+}
 
 char	**putmap(t_data *data, char *line)
 {
@@ -25,11 +33,7 @@ char	**putmap(t_data *data, char *line)
 	size = sp_size(data->map);
 	new = NULL;
 	if (data->map == NULL)
-	{
-		new = malloc(sizeof(char *) * 2);
-		new[0] = rm_lin(line);
-		new[1] = NULL;
-	}
+		new = malloc_oneline(new, line);
 	else
 	{
 		new = malloc(sizeof(char *) * (size + 2));

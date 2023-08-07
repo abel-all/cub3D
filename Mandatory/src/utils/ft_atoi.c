@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 00:25:06 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/06 14:26:20 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:20:28 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ int	ft_strlen(char *s)
 	while (s[++i])
 		;
 	return (i);
+}
+
+char	*rm_lin(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\n')
+			s[i] = '\0';
+		i++;
+	}
+	return (s);
 }
 
 int	ft_error(char *err)

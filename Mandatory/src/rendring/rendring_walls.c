@@ -6,26 +6,11 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 16:07:58 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 17:21:12 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
-
-void	put_data_color(int stripid, t_addr *addr, t_data *data, int x)
-{
-	int	y;
-
-	y = (addr->height * (data->y - data->wall_top)
-			/ (data->wallstripheight));
-	data->color = my_mlx_pixel_get(*addr, x, y);
-	if (check_if_insidemap(data->x + (stripid * WALL_STRIP_WIDTH),
-			data->y, WIN_WIDTH, WIN_HEIGHT))
-	{
-		my_mlx_pixel_put(&data->view, data->x + (stripid * WALL_STRIP_WIDTH),
-			data->y, data->color);
-	}
-}
 
 void	init_of_pos(int stripid, t_data *data)
 {
@@ -39,7 +24,28 @@ void	init_of_pos(int stripid, t_data *data)
 			/ TILE_SIZE) * data->addr_ea.width;
 }
 
-void    rendring_walls(t_data *data, int stripid)
+void	rand_wall_textures(t_data *data, int stripid)
+{
+	while (++data->y < data->wall_bottom)
+	{
+		if (data->ray[stripid].washitvert == 0)
+		{
+			if (data->ray[stripid].rayangle > 3)
+				put_data_color(stripid, &data->addr_we, data, data->pos.x2);
+			else
+				put_data_color(stripid, &data->addr_no, data, data->pos.x1);
+		}
+		else if (data->ray[stripid].washitvert == 1)
+		{
+			if (data->ray[stripid].isright)
+				put_data_color(stripid, &data->addr_so, data, data->pos.y1);
+			else
+				put_data_color(stripid, &data->addr_ea, data, data->pos.y2);
+		}
+	}
+}
+
+void	rendring_walls(t_data *data, int stripid)
 {
 	data->x = -1;
 	while (++data->x < WALL_STRIP_WIDTH)
@@ -52,23 +58,7 @@ void    rendring_walls(t_data *data, int stripid)
 		init_of_pos(stripid, data);
 		if (data->wallstripheight > 16000)
 			data->y = 0;
-		while (++data->y < data->wall_bottom)
-		{
-			if (data->ray[stripid].washitvert == 0)
-			{
-				if (data->ray[stripid].rayangle > 3)
-					put_data_color(stripid, &data->addr_we, data, data->pos.x2);
-				else
-					put_data_color(stripid, &data->addr_no, data, data->pos.x1);
-			}
-			else if (data->ray[stripid].washitvert == 1)
-			{
-				if (data->ray[stripid].isright)
-					put_data_color(stripid, &data->addr_so, data, data->pos.y1);
-				else
-					put_data_color(stripid, &data->addr_ea, data, data->pos.y2);
-			}
-		}
+		rand_wall_textures(data, stripid);
 		data->y = data->wall_bottom - 1;
 		while (++data->y < WIN_HEIGHT)
 			my_mlx_pixel_put(&data->view, data->x + (stripid
@@ -82,8 +72,6 @@ void	rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
 	data->wallstripheight = (TILE_SIZE / (ray->distance * \
 	cos(ray->rayangle - data->player.rotationangle))) * data->disprojplane;
 	data->wall_top = (WIN_HEIGHT / 2) - (data->wallstripheight / 2);
-	// if (data->wall_top < 0)
-	// 	data->wall_top = 0;
 	data->wall_bottom = data->wall_top + data->wallstripheight;
 	if (data->wall_bottom >= WIN_HEIGHT)
 		data->wall_bottom = WIN_HEIGHT - 1;

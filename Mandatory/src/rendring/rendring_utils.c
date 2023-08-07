@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:13:53 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 01:01:03 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 17:00:20 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ unsigned int	my_mlx_pixel_get(t_addr img, int x, int y)
 {
 	unsigned int	*dst;
 
-	//printf("%d %d\n", x, y);
 	dst = img.data_addr + (y * (img.size_line / 4) + x);
 	return (*dst);
 }

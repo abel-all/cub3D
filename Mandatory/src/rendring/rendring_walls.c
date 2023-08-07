@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 17:21:12 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 18:12:10 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	init_of_pos(int stripid, t_data *data)
 {
 	data->pos.x1 = (fmod(data->ray[stripid].wallhitx, TILE_SIZE)
-			/ TILE_SIZE) * data->addr_no.width;
-	data->pos.x2 = (fmod(data->ray[stripid].wallhitx, TILE_SIZE)
-			/ TILE_SIZE) * data->addr_we.width;
-	data->pos.y1 = (fmod(data->ray[stripid].wallhity, TILE_SIZE)
 			/ TILE_SIZE) * data->addr_so.width;
-	data->pos.y2 = (fmod(data->ray[stripid].wallhity, TILE_SIZE)
+	data->pos.x2 = (fmod(data->ray[stripid].wallhitx, TILE_SIZE)
+			/ TILE_SIZE) * data->addr_no.width;
+	data->pos.y1 = (fmod(data->ray[stripid].wallhity, TILE_SIZE)
 			/ TILE_SIZE) * data->addr_ea.width;
+	data->pos.y2 = (fmod(data->ray[stripid].wallhity, TILE_SIZE)
+			/ TILE_SIZE) * data->addr_we.width;
 }
 
 void	rand_wall_textures(t_data *data, int stripid)
@@ -31,16 +31,16 @@ void	rand_wall_textures(t_data *data, int stripid)
 		if (data->ray[stripid].washitvert == 0)
 		{
 			if (data->ray[stripid].rayangle > 3)
-				put_data_color(stripid, &data->addr_we, data, data->pos.x2);
+				put_data_color(stripid, &data->addr_no, data, data->pos.x2);
 			else
-				put_data_color(stripid, &data->addr_no, data, data->pos.x1);
+				put_data_color(stripid, &data->addr_so, data, data->pos.x1);
 		}
 		else if (data->ray[stripid].washitvert == 1)
 		{
 			if (data->ray[stripid].isright)
-				put_data_color(stripid, &data->addr_so, data, data->pos.y1);
+				put_data_color(stripid, &data->addr_ea, data, data->pos.y1);
 			else
-				put_data_color(stripid, &data->addr_ea, data, data->pos.y2);
+				put_data_color(stripid, &data->addr_we, data, data->pos.y2);
 		}
 	}
 }

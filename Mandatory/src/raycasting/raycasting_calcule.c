@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:00:29 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 20:22:40 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/08 00:35:14 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ void	update(t_data *data)
 	data->player.rotationspeed;
 	data->player.rotationangle = get_normalizeangle(data->player.rotationangle);
 	generate_new_player_corr(data, &new_px, &new_py);
-	if (!check_if_wall(data, new_px + data->player.x, new_py + data->player.y))
-	{
-		data->player.x += new_px;
-		data->player.y += new_py;
-	}
+	data->player.x += new_px;
+	data->player.y += new_py;
 	castallrays(data, -1);
 }

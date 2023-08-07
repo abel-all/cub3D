@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:10:43 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 23:11:12 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/08 00:00:03 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ void	put_data_color(int stripid, t_addr *addr, t_data *data, int x)
 			data->y, data->color);
 	}
 }
-

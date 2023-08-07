@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/07 22:28:42 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/08 00:01:15 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	while_short(t_data *data, int *i, int *j, char *tmp)
 		*j = 0;
 		while (tmp[*j] != '\0' && tmp[*j] != '\n')
 			if (!allowed(tmp[(*j)++], -1))
-				ft_error("Map parsing");
+				ft_error("t Map parsing");
 		if (*j)
 			data->map = putmap(data, tmp);
 	}

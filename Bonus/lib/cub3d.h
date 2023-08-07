@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 23:17:24 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/07 23:39:02 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct s_data
 	int			c;
 	int			f;
 	int			l_line;
+	int			door[2];
 	int			mouse_x;
 	t_player	player;
 	t_img		minimap;

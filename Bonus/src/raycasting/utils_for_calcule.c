@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_for_calcule.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:03:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 14:28:30 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/09 07:14:46 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ int	check_if_wall(t_data *data, double x, double y)
 {
 	int	gridx;
 	int	gridy;
+	int	ret;
 
+	gridx = floor(x / TILE_SIZE);
+	gridy = floor(y / TILE_SIZE);
 	if (x < 0 || x > data->map_width || y < 0 || y > data->map_height)
 		return (-1);
-	gridx = x / TILE_SIZE;
-	gridy = y / TILE_SIZE;
+	ret = allowed(data->map[gridy][gridx], -2);
 	if (data->map[gridy] && data->map[gridy][gridx])
-		if (allowed(data->map[gridy][gridx], -2) == 2)
+		if (ret == 2)
 			return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:12:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 23:15:21 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/09 09:44:56 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ void	init_player(t_data *data)
 	data->player.walkdirection = 0;
 	data->player.left_right = 0;
 	data->player.rotationangle = get_rot_angle(data);
-	data->player.rotationspeed = 2 * (M_PI / 180);
-	data->player.movespeed = 2;
+	data->player.rotationspeed = 6 * (M_PI / 180);
+	data->player.movespeed = 10;
 }

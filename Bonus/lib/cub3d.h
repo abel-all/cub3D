@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 23:39:02 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/09 07:14:33 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 
-# define TILE_SIZE 20
+# define TILE_SIZE 16
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 # define MINI_WIDTH 200
@@ -133,7 +133,6 @@ typedef struct s_data
 	int			c;
 	int			f;
 	int			l_line;
-	int			door[2];
 	int			mouse_x;
 	t_player	player;
 	t_img		minimap;

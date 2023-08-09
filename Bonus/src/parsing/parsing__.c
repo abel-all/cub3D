@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:24:47 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/08 00:28:19 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/08 19:26:53 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ char	**putmap(t_data *data, char *line)
 int	allowed(char c, int i)
 {
 	if (i == -2 && (c == '0' || c == 'N'\
-		|| c == 'D' || c == 'S' || c == 'E' || c == 'W'))
+		|| c == 'S' || c == 'E' || c == 'W'))
 		return (2);
-	else if (i == -1 && (c == '0' || c == '1' || c == 'D'\
+	else if (i == -1 && (c == '0' || c == '1'\
 	|| c == ' ' || c == 'N' || c == 'S' || c == 'E' || c == 'W'))
 		return (1);
 	else if (i == 0 && (c == '1' || c == ' '))

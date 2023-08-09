@@ -6,7 +6,7 @@
 #    By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/08/08 13:38:47 by ychahbi          ###   ########.fr        #
+#    Updated: 2023/08/09 21:20:03 by ychahbi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@
 
 
 NAME	= cub3D
-CFLAGS	= -g -Wall -Wextra -Werror #-Ofast #-fsanitize=address
+CFLAGS	= -g -Wall -Wextra -Werror -Ofast -fsanitize=address
 
 HEADERS	= Mandatory/lib/cub3d.h Mandatory/lib/get_next_line.h
 BHEADERS = Bonus/lib/cub3d_bonus.h Bonus/lib/get_next_line_bonus.h

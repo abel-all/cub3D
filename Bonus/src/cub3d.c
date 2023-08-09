@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/09 07:14:11 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/09 21:37:29 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,24 @@ int	mouse_move(int x, int y, t_data *param)
 	return (0);
 }
 
+int	keyrelease(int key, t_data *data)
+{
+	if (key == KEY_RIGHT)
+		data->player.turndirection = 0;
+	if (key == KEY_LEFT)
+		data->player.turndirection = 0;
+	if (key == W)
+		data->player.walkdirection = 0;
+	if (key == S)
+		data->player.walkdirection = 0;
+	if (key == A)
+		data->player.left_right = 0;
+	if (key == D)
+		data->player.left_right = 0;
+	update(data);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
@@ -69,6 +87,7 @@ int	main(int ac, char **av)
 	update(data);
 	ft_rendring(data);
 	mlx_hook(data->mlx_win, 2, 0, keypressed, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, keyrelease, data);
 	mlx_hook(data->mlx_win, 17, 0, exit_status, NULL);
 	mlx_hook(data->mlx_win, 6, 0, mouse_move, data);
 	mlx_loop_hook(data->mlx, ft_rendring, data);

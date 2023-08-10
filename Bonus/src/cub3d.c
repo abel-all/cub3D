@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 18:33:26 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:57:12 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	mouse_move(int x, int y, t_data *param)
 		else
 			param->player.turndirection = -1;
 		update(param);
+		param->player.turndirection = 0;
 		param->mouse_x = x;
 	}
 	return (0);

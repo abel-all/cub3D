@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 18:03:24 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 18:25:21 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,24 @@ void	red_textures(t_data *data)
 			&data->addr_so.size_line, &data->addr_so.endian);
 }
 
+int	keyrelease(int key, t_data *data)
+{
+	if (key == KEY_RIGHT)
+		data->player.turndirection = 0;
+	if (key == KEY_LEFT)
+		data->player.turndirection = 0;
+	if (key == W)
+		data->player.walkdirection = 0;
+	if (key == S)
+		data->player.walkdirection = 0;
+	if (key == A)
+		data->player.left_right = 0;
+	if (key == D)
+		data->player.left_right = 0;
+	update(data);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
@@ -54,6 +72,7 @@ int	main(int ac, char **av)
 	update(data);
 	ft_rendring(data);
 	mlx_hook(data->mlx_win, 2, 0, keypressed, data);
+	mlx_hook(data->mlx_win, 3, 1L << 1, keyrelease, data);
 	mlx_hook(data->mlx_win, 17, 0, exit_status, NULL);
 	mlx_loop_hook(data->mlx, ft_rendring, data);
 	mlx_loop(data->mlx);

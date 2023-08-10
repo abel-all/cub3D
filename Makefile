@@ -6,7 +6,7 @@
 #    By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/08/10 11:40:24 by abel-all         ###   ########.fr        #
+#    Updated: 2023/08/10 14:21:18 by abel-all         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ BHEADERS = Bonus/lib/cub3d_bonus.h Bonus/lib/get_next_line_bonus.h
 SRCS	= Mandatory/src/cub3d.c Mandatory/src/raycasting/raycasting_calcule.c \
 		  Mandatory/src/raycasting/player_movement.c Mandatory/src/raycasting/utils_for_calcule.c \
 		  Mandatory/src/raycasting/init_data.c Mandatory/src/raycasting/ray_direction.c \
-		  Mandatory/src/raycasting/raycasting_calcule_.c Mandatory/src/rendring/rendring_minimap.c \
+		  Mandatory/src/raycasting/raycasting_calcule_.c Mandatory/src/rendring/rendring_minimap.c\
 		  Mandatory/src/rendring/rendring_utils.c Mandatory/src/rendring/rendring_walls.c \
 		  Mandatory/src/parsing/parsing.c Mandatory/src/parsing/parsing_.c \
 		  Mandatory/src/parsing/parsing__.c Mandatory/src/parsing/parsing___.c \

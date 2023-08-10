@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 12:01:08 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:40:41 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,4 +237,5 @@ int				to_int(char *s);
 char			*rm_lin(char *s);
 unsigned int	my_mlx_pixel_get(t_addr img, int x, int y);
 void			put_data_color(int stripid, t_addr *addr, t_data *data, int x);
+
 #endif

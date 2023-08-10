@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_calcule.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:00:29 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/09 21:04:57 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:04:35 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,6 @@ void	cast_ray(t_data *data, t_ray *ray, double rayangle)
 	}
 }
 
-void	castallrays(t_data *data, int i)
-{
-	double	rayangle;
-	double	rayangle_incr;
-
-	rayangle_incr = FOV_ANGLE / NUM_OF_RAYS;
-	rayangle = data->player.rotationangle - (FOV_ANGLE / 2);
-	while (++i < NUM_OF_RAYS)
-	{
-		cast_ray(data, &data->ray[i], rayangle);
-		rayangle += rayangle_incr;
-	}
-}
-
 void	update(t_data *data)
 {
 	double	new_px;
@@ -80,7 +66,9 @@ void	update(t_data *data)
 	data->player.rotationspeed;
 	data->player.rotationangle = get_normalizeangle(data->player.rotationangle);
 	generate_new_player_corr(data, &new_px, &new_py);
-	data->player.x += new_px;
-	data->player.y += new_py;
-	castallrays(data, -1);
+	if (!check_if_wall(data, new_px + data->player.x, new_py + data->player.y))
+	{
+		data->player.x += new_px;
+		data->player.y += new_py;
+	}
 }

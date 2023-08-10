@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 14:34:06 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/10 14:52:52 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,20 @@ int	ft_rendring(void *param)
 {
 	t_data	*data;
 	int		i;
+	double	rayangle;
+	double	rayangle_incr;
 
 	data = (t_data *)param;
 	rendring_minimap(data, 0, 0);
+	rayangle_incr = FOV_ANGLE / NUM_OF_RAYS;
+	rayangle = data->player.rotationangle - (FOV_ANGLE / 2);
 	i = -1;
 	while (++i < NUM_OF_RAYS)
+	{
+		cast_ray(data, &data->ray[i], rayangle);
 		rendring3dprojectionwalls(data, &data->ray[i], i);
+		rayangle += rayangle_incr;
+	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->view.img, 0, 0);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->minimap.img, \
 	20, 850);

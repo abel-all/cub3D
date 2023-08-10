@@ -1,7 +1,7 @@
-NO Bonus/textures/mossy.xpm
-SO Bonus/textures/purplestone.xpm
-WE Bonus/textures/redbrick.xpm
-EA Bonus/textures/wood.xpm
+NO Bonus/textures/bluestone.xpm
+SO Bonus/textures/colorstone.xpm 
+WE Bonus/textures/eagle.xpm 
+EA Bonus/textures/greystone.xpm 
 
 F 220,100,0
 C 225,30,0

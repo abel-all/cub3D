@@ -1,9 +1,9 @@
-   WE                            textures/wolfenstein/grey_stone.xpm
-NO      textures/wolfenstein/purple_stone.xpm
+   WE                            textures/wolfenstein/eagle.xpm
+NO      textures/wolfenstein/bluestone.xpm
 
 
 
-SO textures/wolfenstein/red_brick.xpm
+SO textures/wolfenstein/greystone.xpm
 
 F      17,38,64
 

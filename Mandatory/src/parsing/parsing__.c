@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:24:47 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/08 15:13:39 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:04:08 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	**putmap(t_data *data, char *line)
 		while (i < size)
 		{
 			new[i] = rm_lin(data->map[i]);
+			data->map[i] = NULL;
 			i++;
 		}
 		new[i++] = rm_lin(line);
@@ -105,6 +106,7 @@ void	put_spaces(t_data *data)
 		while (j < data->l_line)
 			map[j++] = ' ';
 		map[j] = '\0';
+		free(data->map[i]);
 		data->map[i++] = ft_strdup(map);
 	}
 	data->map_width = TILE_SIZE * (data->l_line - 1);

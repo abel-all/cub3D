@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "__hash_table": "c"
+        "__hash_table": "c",
+        "locale": "c",
+        "ostream": "c"
     }
 }

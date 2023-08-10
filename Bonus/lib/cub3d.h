@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 12:01:04 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/10 14:54:18 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ void			rendring3dprojectionwalls(t_data *data,
 					t_ray *ray, int stripid);
 int				create_rgb(int r, int g, int b);
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void			cast_ray(t_data *data, t_ray *ray, double rayangle);
 
 /**Parsing*/
 int				parsing(t_data *data, int ac, char **av);

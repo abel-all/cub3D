@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:58:23 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/09 20:58:15 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 10:57:51 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ int	keypressed(int key_code, void	*param)
 	data->player.turndirection = 0;
 	data->player.walkdirection = 0;
 	data->player.left_right = 0;
-	return (key_code);
+	return (0);
 }

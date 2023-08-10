@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_walls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 23:16:55 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 12:05:59 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	rand_wall_textures(t_data *data, int stripid)
 
 void	rendring_walls(t_data *data, int stripid)
 {
-	data->x = -1;
-	while (++data->x < WALL_STRIP_WIDTH)
-	{
+	// data->x = -1;
+	// while (++data->x < 1)
+	// {
 		data->y = -1;
 		while (++data->y < data->wall_top)
-			my_mlx_pixel_put(&data->view, data->x + (stripid
-					* WALL_STRIP_WIDTH), data->y, create_rgb(0, 128, 255));
+			my_mlx_pixel_put(&data->view, stripid
+				, data->y, create_rgb(0, 128, 255));
 		data->y = data->wall_top - 1;
 		init_of_pos(stripid, data);
 		if (data->wallstripheight > 16000)
@@ -61,9 +61,9 @@ void	rendring_walls(t_data *data, int stripid)
 		rand_wall_textures(data, stripid);
 		data->y = data->wall_bottom - 1;
 		while (++data->y < WIN_HEIGHT)
-			my_mlx_pixel_put(&data->view, data->x + (stripid
-					* WALL_STRIP_WIDTH), data->y, create_rgb(0, 102, 0));
-	}
+			my_mlx_pixel_put(&data->view, stripid
+				, data->y, create_rgb(0, 102, 0));
+	// }
 }
 
 void	rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)

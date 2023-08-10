@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:12:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/09 09:44:56 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 11:12:20 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ void	init_player(t_data *data)
 	data->player.walkdirection = 0;
 	data->player.left_right = 0;
 	data->player.rotationangle = get_rot_angle(data);
-	data->player.rotationspeed = 6 * (M_PI / 180);
-	data->player.movespeed = 10;
+	data->player.rotationspeed = 3 * (M_PI / 180);
+	data->player.movespeed = 3;
 }

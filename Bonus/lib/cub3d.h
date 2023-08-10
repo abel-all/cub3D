@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/09 21:19:16 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 12:01:04 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define PLAYER_HEIGHT 4
 # define BORD_HEIGHT 8
 # define FOV_ANGLE 1.0471975512
-# define WALL_STRIP_WIDTH 1
+// # define WALL_STRIP_WIDTH 2
 # define NUM_OF_RAYS WIN_WIDTH
 # define SCALE_FACTOR 0.5
 # define MALLOC_ERR "Malloc Error!\n"

@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:24:47 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/08 19:26:53 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 18:05:21 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,22 @@ char	**putmap(t_data *data, char *line)
 		while (i < size)
 		{
 			new[i] = rm_lin(data->map[i]);
+			data->map[i] = NULL;
 			i++;
 		}
 		new[i++] = rm_lin(line);
 		new[i] = NULL;
 	}
+	free_table(data->map);
+	data->map = NULL;
 	return (new);
 }
 
 int	allowed(char c, int i)
 {
-	if (i == -2 && (c == '0' || c == 'N'\
-		|| c == 'S' || c == 'E' || c == 'W'))
+	if (i == -2 && (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W'))
 		return (2);
-	else if (i == -1 && (c == '0' || c == '1'\
+	else if (i == -1 && (c == '0' || c == '1' \
 	|| c == ' ' || c == 'N' || c == 'S' || c == 'E' || c == 'W'))
 		return (1);
 	else if (i == 0 && (c == '1' || c == ' '))
@@ -106,8 +108,10 @@ void	put_spaces(t_data *data)
 		while (j < data->l_line)
 			map[j++] = ' ';
 		map[j] = '\0';
+		free(data->map[i]);
 		data->map[i++] = ft_strdup(map);
 	}
+	free(map);
 	data->map_width = TILE_SIZE * (data->l_line - 1);
 	data->map_height = TILE_SIZE * i;
 }

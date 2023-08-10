@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:23:22 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 20:21:13 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 18:02:39 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,21 @@ int	to_ints(char	**str)
 	return (i);
 }
 
+int	check_if(char	*str)
+{
+	if (ft_strcmp(str, "NO") == 0 || ft_strcmp(str, "SO") == 0
+		|| ft_strcmp(str, "WE") == 0 || ft_strcmp(str, "EA") == 0
+		|| ft_strcmp(str, "F") == 0 || ft_strcmp(str, "C") == 0)
+		return (1);
+	return (0);
+}
+
 int	check_arg(t_data *data, char	**str)
 {
-	if (ft_strcmp(str[0], "NO") == 0 || ft_strcmp(str[0], "SO") == 0
-		|| ft_strcmp(str[0], "WE") == 0 || ft_strcmp(str[0], "EA") == 0
-		|| ft_strcmp(str[0], "F") == 0 || ft_strcmp(str[0], "C") == 0)
+	char	**ptr;
+
+	ptr = ft_split(str[1], ',');
+	if (check_if(str[0]))
 	{
 		if (ft_strcmp(str[0], "NO") == 0 && data->no == NULL)
 			data->no = rm_lin(ft_strdup(str[1]));
@@ -102,14 +112,14 @@ int	check_arg(t_data *data, char	**str)
 		else if (ft_strcmp(str[0], "EA") == 0 && data->ea == NULL)
 			data->ea = rm_lin(ft_strdup(str[1]));
 		else if (ft_strcmp(str[0], "F") == 0 && data->f == -1
-			&& to_ints(ft_split(str[1], ',')) != -1)
-			data->f = to_ints(ft_split(str[1], ','));
+			&& to_ints(ptr) != -1)
+			data->f = to_ints(ptr);
 		else if (ft_strcmp(str[0], "C") == 0 && data->c == -1
-			&& to_ints(ft_split(str[1], ',')) != -1)
-			data->c = to_ints(ft_split(str[1], ','));
+			&& to_ints(ptr) != -1)
+			data->c = to_ints(ptr);
 		else
 			return (ft_error("args"), 0);
-		return (1);
+		return (free_table(ptr), 1);
 	}
 	return (ft_error("Some ARgs Not Valid"), 0);
 }

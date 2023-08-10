@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 00:25:06 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/07 17:20:28 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 16:50:12 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	ft_strlen(char *s)
 
 char	*rm_lin(char *s)
 {
-	int	i;
+	int		i;
+	char	*ret;
 
 	i = 0;
 	while (s[i] != '\0')
@@ -33,7 +34,8 @@ char	*rm_lin(char *s)
 			s[i] = '\0';
 		i++;
 	}
-	return (s);
+	ret = ft_strdup(s);
+	return (free(s), ret);
 }
 
 int	ft_error(char *err)

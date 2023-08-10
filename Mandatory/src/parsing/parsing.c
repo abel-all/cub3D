@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/10 14:58:28 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/10 17:59:38 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,21 @@ int	empty_line(char	*c)
 
 void	while_short(t_data *data, int *i, int *j, char *tmp)
 {
+	char	**ptr;
+
+	ptr = ft_split(tmp, 32);
 	if (*i <= 6)
 	{
-		if (sp_size(ft_split(tmp, 32)) == 2 && check_arg(data, \
-		ft_split(tmp, 32)))
+		if (sp_size(ptr) == 2 && check_arg(data, ptr))
 			(*i)++;
 		else if (empty_line(tmp))
 			;
 		else
 			ft_error("args - Error! - 0");
+		free(tmp);
 	}
+	else if (empty_line(tmp))
+		free(tmp);
 	else
 	{
 		*j = 0;
@@ -48,6 +53,7 @@ void	while_short(t_data *data, int *i, int *j, char *tmp)
 		if (*j)
 			data->map = putmap(data, tmp);
 	}
+	free_table(ptr);
 }
 
 int	red(t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 14:57:47 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:02:55 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,5 +238,6 @@ int				to_int(char *s);
 char			*rm_lin(char *s);
 unsigned int	my_mlx_pixel_get(t_addr img, int x, int y);
 void			put_data_color(int stripid, t_addr *addr, t_data *data, int x);
-
+void			free_table(char	**ptr);
+int				check_if(char	*str);
 #endif

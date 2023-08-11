@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/10 17:59:38 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/11 07:03:42 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	while_short(t_data *data, int *i, int *j, char *tmp)
 		free(tmp);
 	}
 	else if (empty_line(tmp))
-		free(tmp);
+		check_emptylines_inmap(data, tmp);
 	else
 	{
 		*j = 0;

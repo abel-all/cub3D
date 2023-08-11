@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:25:59 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 17:59:48 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/11 07:07:34 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ int	sp_size(char **str)
 	while (str && str[i] != NULL)
 		i++;
 	return (i);
+}
+
+void	check_emptylines_inmap(t_data *data, char *tmp)
+{
+	if (sp_size(data->map) != 0)
+		ft_error("ERROR");
+	free(tmp);
+}
+
+void	free_map_null(t_data *data)
+{
+	free_table(data->map);
+	data->map = NULL;
 }
 
 void	free_table(char	**ptr)

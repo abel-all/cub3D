@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 18:04:53 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/11 07:09:16 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,4 +240,6 @@ unsigned int	my_mlx_pixel_get(t_addr img, int x, int y);
 void			put_data_color(int stripid, t_addr *addr, t_data *data, int x);
 void			free_table(char	**ptr);
 int				check_if(char	*str);
+void			check_emptylines_inmap(t_data *data, char *tmp);
+void			free_map_null(t_data *data);
 #endif

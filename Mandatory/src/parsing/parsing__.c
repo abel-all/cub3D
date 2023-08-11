@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:24:47 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 17:03:54 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/11 07:06:40 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ char	**putmap(t_data *data, char *line)
 		new[i++] = rm_lin(line);
 		new[i] = NULL;
 	}
-	free_table(data->map);
-	data->map = NULL;
+	free_map_null(data);
 	return (new);
 }
 

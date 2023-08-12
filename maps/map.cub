@@ -1,7 +1,7 @@
-NO Mandatory/textures/bluestone.xpm
-SO Mandatory/textures/mossy.xpm
-WE Mandatory/textures/wood.xpm
-EA Mandatory/textures/eagle.xpm
+NO textures/bluestone.xpm
+SO textures/mossy.xpm
+WE textures/wood.xpm
+EA textures/eagle.xpm
 
 
 F 220,100,2

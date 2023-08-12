@@ -6,7 +6,7 @@
 #    By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/08/12 11:19:50 by ychahbi          ###   ########.fr        #
+#    Updated: 2023/08/12 11:49:03 by ychahbi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ clean	:
 
 fclean	: clean
 	rm -rf $(NAME)
-	$(rm_cub3D)
+	@$(rm_cub3D)
 
 re		: fclean all
 

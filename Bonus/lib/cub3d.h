@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 10:54:11 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 11:50:03 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,4 +243,5 @@ void			free_table(char	**ptr);
 int				check_if(char	*str);
 void			check_emptylines_inmap(t_data *data, char *tmp);
 void			free_map_null(t_data *data);
+void			*ft_malloc(size_t size);
 #endif

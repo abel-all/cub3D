@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 18:36:32 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 11:24:02 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int ac, char **av)
 {
 	t_data	*data;
 
-	data = malloc(sizeof(t_data));
+	data = ft_malloc(sizeof(t_data));
 	if (!data)
 		ft_error(MALLOC_ERR);
 	if (parsing(data, ac, av) == -1)

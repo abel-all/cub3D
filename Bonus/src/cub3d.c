@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 18:57:12 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 11:47:53 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int ac, char **av)
 {
 	t_data	*data;
 
-	data = malloc(sizeof(t_data));
+	data = ft_malloc(sizeof(t_data));
 	if (!data)
 		ft_error(MALLOC_ERR);
 	if (parsing(data, ac, av) == -1)

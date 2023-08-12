@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 10:35:13 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/10 16:14:54 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 11:24:36 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**ft_split(char *s, char c)
 	if (!s)
 		return (NULL);
 	wd_c = wd_count(s, c);
-	ptr = malloc(sizeof(char *) * (wd_c + 1));
+	ptr = ft_malloc(sizeof(char *) * (wd_c + 1));
 	if (!ptr)
 		return (NULL);
 	if (while_it(s, c, ptr, wd_c) == 0)

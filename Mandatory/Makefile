@@ -3,18 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+         #
+#    By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/08/12 13:40:55 by abel-all         ###   ########.fr        #
+#    Updated: 2023/08/12 15:11:17 by ychahbi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3D
-
-CFLAGS	= -g -Wall -Wextra -Werror -Ofast #-fsanitize=address
+CFLAGS	= -g -Wall -Wextra -Werror -Ofast
 
 HEADERS	= lib/cub3d.h
+
+rm_cub3D = rm -rf ../cub3D
 
 SRCS	= src/cub3d.c src/raycasting/raycasting_calcule.c \
 		  src/raycasting/player_movement.c src/raycasting/utils_for_calcule.c \
@@ -25,7 +26,8 @@ SRCS	= src/cub3d.c src/raycasting/raycasting_calcule.c \
 		  src/parsing/parsing__.c src/parsing/parsing___.c \
 		  src/utils/ft_atoi.c src/utils/ft_split.c \
 		  src/utils/ft_strcmp.c src/utils/ft_strdup.c \
-		  src/utils/get_next_line.c src/utils/get_next_line_utils.c src/utils/free_resources.c
+		  src/utils/get_next_line.c src/utils/get_next_line_utils.c \
+		  src/utils/free_resources.c
 
 OBJS	= $(SRCS:.c=.o) 
 
@@ -41,6 +43,8 @@ clean	:
 	rm -rf $(OBJS)
 
 fclean	: clean
+	@rm -rf $(NAME)
+	@$(rm_cub3D)
 
 re		: fclean all
 

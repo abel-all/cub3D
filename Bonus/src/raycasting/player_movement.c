@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:58:23 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 13:12:34 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:15:38 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	keypressed(int key_code, void	*param)
 	else if (key_code == KEY_LEFT)
 		data->player.turndirection = -1;
 	else if (key_code == ESC)
-		exit(1);
+		exit(free_resources(data));
 	update(data);
 	return (0);
 }
@@ -51,8 +51,8 @@ int	check_if_wall__(t_data *data, double x, double y)
 
 	if (x < 0 || x > data->map_width || y < 0 || y > data->map_height)
 		return (-1);
-	gridx = floor(x / TILE_SIZE);
-	gridy = floor(y / TILE_SIZE);
+	gridx = x / TILE_SIZE;
+	gridy = y / TILE_SIZE;
 	ret = allowed(data->map[gridy][gridx], -2);
 	if (data->map[gridy] && data->map[gridy][gridx])
 		if (ret == 2)

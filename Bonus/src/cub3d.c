@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 12:48:08 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:01:56 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,12 @@ int	keyrelease(int keycode, void *param)
 	return (0);
 }
 
-void f()
-{
-	system("leaks cub3D");
-}
-
 int	main(int ac, char **av)
 {
 	t_data	*data;
-	atexit(f);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		ft_error(MALLOC_ERR);
-	if (parsing(data, ac, av) == -1)
-		ft_error(PARS_ERR);
+
+	data = ft_malloc(sizeof(t_data));
+	parsing(data, ac, av);
 	init_window(data);
 	init_player(data);
 	red_textures(data);

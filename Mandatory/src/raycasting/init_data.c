@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:12:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 11:12:20 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:59:30 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	init_window(t_data *data)
 	data->mlx_win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
 	if (!data->mlx_win)
 		ft_error(NEW_WIN_ERR);
-	create_img(data, &data->minimap, 0, 1);
-	create_img(data, &data->view, 0, 2);
+	create_img(data, &data->view, 0);
 }
 
 double	get_rot_angle(t_data *data)

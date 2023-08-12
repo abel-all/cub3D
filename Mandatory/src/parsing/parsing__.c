@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:24:47 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/11 07:06:40 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 11:24:26 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 char	**malloc_oneline(char	**new, char	*line)
 {
-	new = malloc(sizeof(char *) * 2);
+	new = ft_malloc(sizeof(char *) * 2);
 	new[0] = rm_lin(line);
 	new[1] = NULL;
 	return (new);
@@ -36,7 +36,7 @@ char	**putmap(t_data *data, char *line)
 		new = malloc_oneline(new, line);
 	else
 	{
-		new = malloc(sizeof(char *) * (size + 2));
+		new = ft_malloc(sizeof(char *) * (size + 2));
 		while (i < size)
 		{
 			new[i] = rm_lin(data->map[i]);
@@ -95,7 +95,7 @@ void	put_spaces(t_data *data)
 	char	*map;
 
 	i = 0;
-	map = malloc(sizeof(char) * (data->l_line + 1));
+	map = ft_malloc(sizeof(char) * (data->l_line + 1));
 	while (data->map[i])
 	{
 		j = 0;

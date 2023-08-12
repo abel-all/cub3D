@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:58:23 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 15:23:59 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 14:54:34 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
 
-int	exit_status(void)
+int	exit_status(void *param)
 {
-	exit(EXIT_SUCCESS);
+	t_data	*data;
+
+	data = (t_data *)param;
+	exit(free_resources(data));
 }
 
 int	keypressed(int key_code, void	*param)
@@ -35,10 +38,7 @@ int	keypressed(int key_code, void	*param)
 	else if (key_code == KEY_LEFT)
 		data->player.turndirection = -1;
 	else if (key_code == ESC)
-		exit(1);
+		exit(free_resources(data));
 	update(data);
-	data->player.turndirection = 0;
-	data->player.walkdirection = 0;
-	data->player.left_right = 0;
 	return (0);
 }

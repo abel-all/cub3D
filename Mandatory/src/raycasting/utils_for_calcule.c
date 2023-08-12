@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:03:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/06 14:28:30 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:59:52 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,18 @@ void	generate_new_player_corr(t_data *data, double *new_px, double *new_py)
 	}
 }
 
-void	create_img(t_data *data, t_img *img, int flag, int i)
+void	create_img(t_data *data, t_img *img, int flag)
 {
 	if (flag)
 		mlx_destroy_image(data->mlx, img->img);
-	if (i == 1)
-		img->img = mlx_new_image(data->mlx, MINI_WIDTH, MINI_WIDTH);
-	else if (i == 2)
-		img->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
+	img->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, \
 	&img->bits_per_pixel, &img->line_length, &img->endian);
 }
 
 void	destroy_and_create_img(t_data *data)
 {
-	create_img(data, &data->minimap, 1, 1);
-	create_img(data, &data->view, 1, 2);
+	create_img(data, &data->view, 1);
 }
 
 int	check_if_insidemap(double x, double y, int winwidth, int winheight)

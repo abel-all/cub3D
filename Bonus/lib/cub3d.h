@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 13:13:17 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:47:15 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <limits.h>
 # include <mlx.h>
+# include "get_next_line.h"
 
 # define W 13
 # define S 1
@@ -206,7 +207,7 @@ void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void			cast_ray(t_data *data, t_ray *ray, double rayangle);
 
 /**Parsing*/
-int				parsing(t_data *data, int ac, char **av);
+void			parsing(t_data *data, int ac, char **av);
 int				ft_atoi(char *str);
 char			**ft_split(char *s, char c);
 int				ft_strcmp(char *s1, char *s2);
@@ -221,7 +222,6 @@ char			*rm_lin(char *s);
 int				empty_line(char	*c);
 int				red(t_data *data);
 int				check_name(t_data *data, char *name);
-int				parsing(t_data *data, int ac, char **av);
 int				much_players(t_data *data);
 int				check_lines(t_data *data);
 int				to_ints(char	**str);
@@ -241,5 +241,6 @@ void			free_table(char	**ptr);
 int				check_if(char	*str);
 void			check_emptylines_inmap(t_data *data, char *tmp);
 void			free_map_null(t_data *data);
+void			*ft_malloc(size_t size);
 int				free_resources(t_data *data);
 #endif

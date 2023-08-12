@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:12:13 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 14:13:48 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:00:08 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ int	free_resources(t_data *data)
 	free(data->so);
 	free(data->we);
 	free(data->ea);
-	mlx_destroy_image(data->mlx, data->minimap.img);
-	mlx_destroy_image(data->mlx, data->view.img);
 	mlx_destroy_window(data->mlx, data->mlx_win);
+	mlx_destroy_image(data->mlx, data->view.img);
 	free_t_addr(data->addr_ea);
 	free_t_addr(data->addr_we);
 	free_t_addr(data->addr_so);

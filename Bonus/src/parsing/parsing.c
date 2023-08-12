@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/11 07:01:51 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 14:19:13 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
-#include "../../lib/get_next_line.h"
 
 int	empty_line(char	*c)
 {
@@ -89,7 +88,7 @@ int	check_name(t_data *data, char *name)
 	return (0);
 }
 
-int	parsing(t_data *data, int ac, char **av)
+void	parsing(t_data *data, int ac, char **av)
 {
 	data->map = NULL;
 	data->no = NULL;
@@ -100,7 +99,7 @@ int	parsing(t_data *data, int ac, char **av)
 	data->f = -1;
 	data->mouse_x = 0;
 	if (ac == 2 && check_name(data, av[1]) == 0 && red(data) == 0)
-		return (1);
+		return ;
 	else
-		return (printf("Parsing Error!"), -1);
+		ft_error("Parsing Error!");
 }

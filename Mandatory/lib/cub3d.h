@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/11 07:08:00 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 14:56:16 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <limits.h>
 # include <mlx.h>
+# include "get_next_line.h"
 
 # define W 13
 # define S 1
@@ -37,7 +38,6 @@
 # define PLAYER_HEIGHT 4
 # define BORD_HEIGHT 8
 # define FOV_ANGLE 1.0471975512
-// # define WALL_STRIP_WIDTH 1
 # define NUM_OF_RAYS WIN_WIDTH
 # define SCALE_FACTOR 0.5
 # define MALLOC_ERR "Malloc Error!\n"
@@ -67,8 +67,6 @@ typedef struct s_ray
 	int		isright;
 	int		isleft;
 	int		id;
-	t_point	*a;
-	t_point	*b;
 }				t_ray;
 
 typedef struct s_player
@@ -135,7 +133,6 @@ typedef struct s_data
 	int			l_line;
 	int			mouse_x;
 	t_player	player;
-	t_img		minimap;
 	t_img		view;
 	t_ray		ray[NUM_OF_RAYS];
 	t_point		intersept;
@@ -177,7 +174,7 @@ int				chek_if_isdown(t_ray *ray);
 double			get_normalizeangle(double angle);
 int				check_if_insidemap(double x, double y,
 					int winwidth, int winheight);
-void			create_img(t_data *data, t_img *img, int flag, int i);
+void			create_img(t_data *data, t_img *img, int flag);
 void			destroy_and_create_img(t_data *data);
 void			generate_new_player_corr(t_data *data,
 					double *new_px, double *new_py);
@@ -191,7 +188,7 @@ void			init_player(t_data *data);
 void			init_window(t_data *data);
 int				ft_strlen(char *s);
 int				ft_error(char *err);
-int				exit_status(void);
+int				exit_status(void *param);
 void			init_ray(t_ray *ray, double rayangle);
 double			get_rot_angle(t_data *data);
 
@@ -207,7 +204,7 @@ void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void			cast_ray(t_data *data, t_ray *ray, double rayangle);
 
 /**Parsing*/
-int				parsing(t_data *data, int ac, char **av);
+void			parsing(t_data *data, int ac, char **av);
 int				ft_atoi(char *str);
 char			**ft_split(char *s, char c);
 int				ft_strcmp(char *s1, char *s2);
@@ -222,7 +219,6 @@ char			*rm_lin(char *s);
 int				empty_line(char	*c);
 int				red(t_data *data);
 int				check_name(t_data *data, char *name);
-int				parsing(t_data *data, int ac, char **av);
 int				much_players(t_data *data);
 int				check_lines(t_data *data);
 int				to_ints(char	**str);
@@ -242,4 +238,6 @@ void			free_table(char	**ptr);
 int				check_if(char	*str);
 void			check_emptylines_inmap(t_data *data, char *tmp);
 void			free_map_null(t_data *data);
+void			*ft_malloc(size_t size);
+int				free_resources(t_data *data);
 #endif

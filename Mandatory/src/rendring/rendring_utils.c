@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:13:53 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/07 17:00:20 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 14:57:21 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@ unsigned int	my_mlx_pixel_get(t_addr img, int x, int y)
 int	create_rgb(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
-}
-
-void	draw_line(t_data *data, t_point a, t_point b)
-{
-	int	n_of_pixels;
-
-	n_of_pixels = LINE_LENGTH;
-	data->delta.x = b.x - a.x;
-	data->delta.y = b.y - a.y;
-	data->delta.x /= n_of_pixels;
-	data->delta.y /= n_of_pixels;
-	while (n_of_pixels--)
-	{
-		my_mlx_pixel_put(&data->minimap, a.x, a.y, 0xFF0000);
-		a.x += data->delta.x;
-		a.y += data->delta.y;
-	}
 }
 
 int	get_color(t_data *data, int x, int y)

@@ -6,12 +6,11 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:25:59 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/11 07:07:34 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 19:50:56 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
-#include "../../lib/get_next_line.h"
 
 int	sp_size(char **str)
 {

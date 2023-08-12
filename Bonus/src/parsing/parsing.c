@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/12 14:19:13 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:05:39 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	while_short(t_data *data, int *i, int *j, char *tmp)
 		check_emptylines_inmap(data, tmp);
 	else
 	{
-		*j = 0;
+		check_first_char(tmp, j);
 		while (tmp[*j] != '\0' && tmp[*j] != '\n')
 			if (!allowed(tmp[(*j)++], -1))
 				ft_error("Map parsing");

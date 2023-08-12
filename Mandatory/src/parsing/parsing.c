@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/12 14:45:53 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:01:40 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	while_short(t_data *data, int *i, int *j, char *tmp)
 		check_emptylines_inmap(data, tmp);
 	else
 	{
-		*j = 0;
+		check_first_char(tmp, j);
 		while (tmp[*j] != '\0' && tmp[*j] != '\n')
 			if (!allowed(tmp[(*j)++], -1))
 				ft_error("Map parsing");
@@ -66,6 +66,8 @@ int	red(t_data *data)
 	i = 1;
 	fd = open(data->mapname, O_RDONLY, 0666);
 	tmp = get_next_line(fd);
+	if (tmp == NULL)
+		ft_error("map empty!");
 	while (tmp)
 	{
 		while_short(data, &i, &j, tmp);

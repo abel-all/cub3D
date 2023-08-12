@@ -6,12 +6,11 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:23:22 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 18:02:39 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 19:51:02 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../lib/cub3d.h"
-#include "../../lib/get_next_line.h"
 
 int	much_players(t_data *data)
 {
@@ -75,7 +74,7 @@ int	to_ints(char	**str)
 	int	i;
 
 	i = -1;
-	if (sp_size(str) != 3)
+	if (sp_size(str) != 3 || not_digi(str[0], str[1], str[2]) == 0)
 		return (ft_error("atoi"), -1);
 	if (ft_atoi(str[0]) < 0 || ft_atoi(str[0]) > 255)
 		return (ft_error("atoi"), -1);
@@ -87,7 +86,7 @@ int	to_ints(char	**str)
 	return (i);
 }
 
-int	check_if(char	*str)
+int	check_if(char *str)
 {
 	if (ft_strcmp(str, "NO") == 0 || ft_strcmp(str, "SO") == 0
 		|| ft_strcmp(str, "WE") == 0 || ft_strcmp(str, "EA") == 0

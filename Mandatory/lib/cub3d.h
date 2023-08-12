@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 14:56:16 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:02:37 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 
-# define TILE_SIZE 20
+# define TILE_SIZE 64
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 # define MINI_WIDTH 200
@@ -240,4 +240,6 @@ void			check_emptylines_inmap(t_data *data, char *tmp);
 void			free_map_null(t_data *data);
 void			*ft_malloc(size_t size);
 int				free_resources(t_data *data);
+int				not_digi(char *s1, char *s2, char *s3);
+void			check_first_char(char *tmp, int	*j);
 #endif

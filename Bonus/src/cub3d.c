@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/10 18:57:12 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 12:48:08 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,44 +39,53 @@ void	red_textures(t_data *data)
 			&data->addr_so.size_line, &data->addr_so.endian);
 }
 
-int	mouse_move(int x, int y, t_data *param)
+int	mouse_move(int x, int y, void *param)
 {
-	(void)y;
+	t_data	*data;
+
+	data = (t_data *)param;
 	if (x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 	{
-		if (x > param->mouse_x)
-			param->player.turndirection = 1;
+		if (x > data->mouse_x)
+			data->player.turndirection = 1;
 		else
-			param->player.turndirection = -1;
-		update(param);
-		param->player.turndirection = 0;
-		param->mouse_x = x;
+			data->player.turndirection = -1;
+		update(data);
+		data->mouse_x = x;
 	}
 	return (0);
 }
 
-int	keyrelease(int key, t_data *data)
+int	keyrelease(int keycode, void *param)
 {
-	if (key == KEY_RIGHT)
+	t_data	*data;
+
+	data = (t_data *)param;
+	if (keycode == KEY_RIGHT)
 		data->player.turndirection = 0;
-	if (key == KEY_LEFT)
+	if (keycode == KEY_LEFT)
 		data->player.turndirection = 0;
-	if (key == W)
+	if (keycode == W)
 		data->player.walkdirection = 0;
-	if (key == S)
+	if (keycode == S)
 		data->player.walkdirection = 0;
-	if (key == A)
+	if (keycode == A)
 		data->player.left_right = 0;
-	if (key == D)
+	if (keycode == D)
 		data->player.left_right = 0;
 	update(data);
 	return (0);
 }
 
+void f()
+{
+	system("leaks cub3D");
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
-
+	atexit(f);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		ft_error(MALLOC_ERR);
@@ -89,7 +98,7 @@ int	main(int ac, char **av)
 	ft_rendring(data);
 	mlx_hook(data->mlx_win, 2, 0, keypressed, data);
 	mlx_hook(data->mlx_win, 3, 0, keyrelease, data);
-	mlx_hook(data->mlx_win, 17, 0, exit_status, NULL);
+	mlx_hook(data->mlx_win, 17, 0, exit_status, data);
 	mlx_hook(data->mlx_win, 6, 0, mouse_move, data);
 	mlx_loop_hook(data->mlx, ft_rendring, data);
 	mlx_loop(data->mlx);

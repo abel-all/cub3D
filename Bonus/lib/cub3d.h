@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 09:58:02 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/12 13:13:17 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 # define PLAYER_HEIGHT 4
 # define BORD_HEIGHT 8
 # define FOV_ANGLE 1.0471975512
-// # define WALL_STRIP_WIDTH 2
 # define NUM_OF_RAYS WIN_WIDTH
 # define SCALE_FACTOR 0.5
 # define MALLOC_ERR "Malloc Error!\n"
@@ -67,8 +66,6 @@ typedef struct s_ray
 	int		isright;
 	int		isleft;
 	int		id;
-	t_point	*a;
-	t_point	*b;
 }				t_ray;
 
 typedef struct s_player
@@ -138,7 +135,6 @@ typedef struct s_data
 	t_img		minimap;
 	t_img		view;
 	t_ray		ray[NUM_OF_RAYS];
-	t_ray		rot_ray;
 	t_point		intersept;
 	t_point		step;
 	t_point		nexttouch;
@@ -162,8 +158,6 @@ typedef struct s_data
 	t_addr		addr_ea;
 	t_addr		addr_so;
 	t_pos		pos;
-	t_point		grid;
-	t_point		_grid;
 }				t_data;
 
 /*RAYCASTING*/
@@ -188,13 +182,15 @@ void			calc_vertintersection(t_data *data, t_ray *ray);
 void			calc_horzintersection(t_data *data, t_ray *ray);
 void			increment_until_find_wall(t_data *data, t_ray *ray, int f);
 void			set_wallhit_corr(t_data *data, t_ray *ray, int f);
+int				count_n_of_wall(t_data *data, double x, double y);
+int				check_if_wall__(t_data *data, double x, double y);
 
 /*INIT DATA*/
 void			init_player(t_data *data);
 void			init_window(t_data *data);
 int				ft_strlen(char *s);
 int				ft_error(char *err);
-int				exit_status(void);
+int				exit_status(void *param);
 void			init_ray(t_ray *ray, double rayangle);
 double			get_rot_angle(t_data *data);
 
@@ -245,4 +241,5 @@ void			free_table(char	**ptr);
 int				check_if(char	*str);
 void			check_emptylines_inmap(t_data *data, char *tmp);
 void			free_map_null(t_data *data);
+int				free_resources(t_data *data);
 #endif

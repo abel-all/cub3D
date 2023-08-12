@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/11 07:09:16 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 09:58:02 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct s_data
 	t_img		minimap;
 	t_img		view;
 	t_ray		ray[NUM_OF_RAYS];
+	t_ray		rot_ray;
 	t_point		intersept;
 	t_point		step;
 	t_point		nexttouch;
@@ -161,6 +162,8 @@ typedef struct s_data
 	t_addr		addr_ea;
 	t_addr		addr_so;
 	t_pos		pos;
+	t_point		grid;
+	t_point		_grid;
 }				t_data;
 
 /*RAYCASTING*/

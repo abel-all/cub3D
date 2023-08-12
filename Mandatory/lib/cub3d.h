@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/11 07:08:00 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/12 09:58:55 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <limits.h>
 # include <mlx.h>
+# include "get_next_line.h"
 
 # define W 13
 # define S 1

@@ -6,7 +6,7 @@
 #    By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/22 11:49:07 by abel-all          #+#    #+#              #
-#    Updated: 2023/08/12 10:46:16 by ychahbi          ###   ########.fr        #
+#    Updated: 2023/08/12 11:19:05 by ychahbi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME	= cub3D
 CFLAGS	= -g -Wall -Wextra -Werror -Ofast #-fsanitize=address
 
 HEADERS	= lib/cub3d.h
+
+rm_cub3D = rm -rf ../cub3D
 
 SRCS	= src/cub3d.c src/raycasting/raycasting_calcule.c \
 		  src/raycasting/player_movement.c src/raycasting/utils_for_calcule.c \
@@ -41,6 +43,7 @@ clean	:
 
 fclean	: clean
 	rm -rf $(NAME)
+	$(rm_cub3D)
 
 re		: fclean all
 

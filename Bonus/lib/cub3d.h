@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 20:05:14 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/13 08:27:59 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,4 +245,5 @@ void			*ft_malloc(size_t size);
 int				free_resources(t_data *data);
 int				not_digi(char *s1, char *s2, char *s3);
 void			check_first_char(char *tmp, int	*j);
+void			_check_args(t_data *data);
 #endif

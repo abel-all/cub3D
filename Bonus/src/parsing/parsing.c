@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 01:38:15 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/12 20:05:39 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/13 08:20:29 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	red(t_data *data)
 	i = 1;
 	fd = open(data->mapname, O_RDONLY, 0666);
 	tmp = get_next_line(fd);
+	if (tmp == NULL)
+		ft_error("map empty!");
 	while (tmp)
 	{
 		while_short(data, &i, &j, tmp);

@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 19:50:48 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/12 20:02:03 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/13 08:29:23 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,12 @@ void	check_first_char(char *tmp, int *j)
 			ft_error("map error");
 		i--;
 	}
+}
+
+void	_check_args(t_data *data)
+{
+	if (sp_size(data->map) == 0 || data->no == NULL
+		|| data->so == NULL || data->we == NULL || data->ea == NULL
+		|| data->f == -1 || data->c == -1)
+		ft_error("map error");
 }

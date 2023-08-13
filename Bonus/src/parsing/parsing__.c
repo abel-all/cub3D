@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:24:47 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 11:48:09 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/13 08:27:32 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	put_spaces(t_data *data)
 
 	i = 0;
 	map = ft_malloc(sizeof(char) * (data->l_line + 1));
+	_check_args(data);
 	while (data->map[i])
 	{
 		j = 0;

@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:12:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/13 10:11:06 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/13 11:50:30 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	init_window(t_data *data)
 double	get_rot_angle(t_data *data)
 {
 	if (data->p_r == 'S')
-		return ((3 * M_PI) / 2);
+		return (M_PI / 2);
 	if (data->p_r == 'W')
 		return (M_PI);
 	if (data->p_r == 'N')
-		return (M_PI / 2);
+		return ((3 * M_PI) / 2);
 	return (0);
 }
 

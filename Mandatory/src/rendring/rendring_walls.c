@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_walls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:16:33 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/11 07:04:48 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/13 09:39:39 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	rendring3dprojectionwalls(t_data *data, t_ray *ray, int stripid)
 	data->wallstripheight = (TILE_SIZE / (ray->distance * \
 	cos(ray->rayangle - data->player.rotationangle))) * data->disprojplane;
 	data->wall_top = (WIN_HEIGHT / 2) - (data->wallstripheight / 2);
+	data->wall_top_negative = data->wall_top;
 	if (data->wall_top < 0)
 		data->wall_top = 0;
 	data->wall_bottom = data->wall_top + data->wallstripheight;

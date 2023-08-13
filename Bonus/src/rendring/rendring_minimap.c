@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendring_minimap.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:10:43 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/13 08:14:13 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/13 09:37:17 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	put_data_color(int stripid, t_addr *addr, t_data *data, int x)
 	int	y;
 	int	dis;
 
-	dis = data->y + (data->wallstripheight / 2) - (WIN_HEIGHT / 2);
+	dis = data->y - data->wall_top_negative;
 	y = (addr->height * (dis / (data->wallstripheight)));
 	data->color = my_mlx_pixel_get(*addr, x, y);
 	if (check_if_insidemap(data->x + stripid,

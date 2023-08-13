@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 08:11:17 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/13 08:27:39 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/13 09:00:30 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 
-# define TILE_SIZE 64
+# define TILE_SIZE 16
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 # define MINI_WIDTH 200

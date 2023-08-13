@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 15:03:02 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/13 08:56:34 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ int	keyrelease(int key, t_data *data)
 {
 	if (key == KEY_RIGHT)
 		data->player.turndirection = 0;
-	if (key == KEY_LEFT)
+	else if (key == KEY_LEFT)
 		data->player.turndirection = 0;
-	if (key == W)
+	else if (key == W)
 		data->player.walkdirection = 0;
-	if (key == S)
+	else if (key == S)
 		data->player.walkdirection = 0;
-	if (key == A)
+	else if (key == A)
 		data->player.left_right = 0;
-	if (key == D)
+	else if (key == D)
 		data->player.left_right = 0;
+	else
+		return (0);
 	update(data);
 	return (0);
 }

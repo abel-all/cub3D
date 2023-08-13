@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:37:20 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 15:01:56 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/13 08:56:56 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,22 @@ int	mouse_move(int x, int y, void *param)
 	return (0);
 }
 
-int	keyrelease(int keycode, void *param)
+int	keyrelease(int key, t_data *data)
 {
-	t_data	*data;
-
-	data = (t_data *)param;
-	if (keycode == KEY_RIGHT)
+	if (key == KEY_RIGHT)
 		data->player.turndirection = 0;
-	if (keycode == KEY_LEFT)
+	else if (key == KEY_LEFT)
 		data->player.turndirection = 0;
-	if (keycode == W)
+	else if (key == W)
 		data->player.walkdirection = 0;
-	if (keycode == S)
+	else if (key == S)
 		data->player.walkdirection = 0;
-	if (keycode == A)
+	else if (key == A)
 		data->player.left_right = 0;
-	if (keycode == D)
+	else if (key == D)
 		data->player.left_right = 0;
+	else
+		return (0);
 	update(data);
 	return (0);
 }

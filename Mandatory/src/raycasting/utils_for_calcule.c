@@ -6,7 +6,7 @@
 /*   By: abel-all <abel-all@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:03:08 by abel-all          #+#    #+#             */
-/*   Updated: 2023/08/12 14:59:52 by abel-all         ###   ########.fr       */
+/*   Updated: 2023/08/13 11:02:25 by abel-all         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	generate_new_player_corr(t_data *data, double *new_px, double *new_py)
 	else if (data->player.left_right != 0)
 	{
 		movestep = data->player.left_right * data->player.movespeed;
-		*new_px = cos(data->player.rotationangle - M_PI_2) * movestep;
-		*new_py = sin(data->player.rotationangle - M_PI_2) * movestep;
+		*new_px = cos(M_PI_2 - data->player.rotationangle) * movestep;
+		*new_py = sin(M_PI_2 - data->player.rotationangle) * movestep;
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: ychahbi <ychahbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 00:25:06 by ychahbi           #+#    #+#             */
-/*   Updated: 2023/08/10 16:50:12 by ychahbi          ###   ########.fr       */
+/*   Updated: 2023/08/13 11:46:47 by ychahbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ int	ft_error(char *err)
 	exit(EXIT_FAILURE);
 }
 
+void	atoi_helper(char c)
+{
+	if (c != '\0' && c != '\n')
+		ft_error("atoi error");
+}
+
 int	ft_atoi(char *str)
 {
 	int	dex;
@@ -69,5 +75,6 @@ int	ft_atoi(char *str)
 		rslt = (rslt * 10) + (str[dex] - 48);
 		dex++;
 	}
+	atoi_helper(str[dex]);
 	return (rslt * sign);
 }
